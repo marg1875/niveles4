@@ -1,0 +1,57 @@
+paciente,mes,archivo,variables,fuente_eeg,canales,muestras,duracion_s,nan_inf,n_stims,valores_stims,max_dif_B_vs_cola,resps,banderas
+Px.006,1°MES,Px006_10img_1.mat,B[16x2500]double EEG_all[16x39104]double stims[1x80]double,EEG_all,16,39104,156.416,0,80,[0 10],0,"",
+Px.006,1°MES,Px006_40img_1.mat,B[16x2500]double EEG_all[16x39112]double stims[1x80]double,EEG_all,16,39112,156.448,0,80,[0 40],0,"",2 canal(es) duplicado(s)
+Px.006,1°MES,px006_10_1.mat,B[16x2500]double EEG_all[16x39072]double stims[1x80]double,EEG_all,16,39072,156.288,0,80,[0 10],0,"",1 canal(es) con amplitud >10x la mediana
+Px.006,1°MES,px006_40_1.mat,B[16x2500]double EEG_all[16x39143]double stims[1x80]double,EEG_all,16,39143,156.572,0,80,[0 40],0,"",
+Px.006,3°MES,Px006_10img_3.mat,B[16x2500]double EEG_all[16x39112]double stims[1x80]double,EEG_all,16,39112,156.448,0,80,[0 40],0,"",
+Px.006,3°MES,Px006_40img_3.mat,B[16x2500]double EEG_all[16x39096]double stims[1x80]double,EEG_all,16,39096,156.384,0,80,[0 40],0,"",
+Px.006,3°MES,px006_10_2.mat,B[16x2500]double EEG_all[16x39071]double stims[1x80]double,EEG_all,16,39071,156.284,0,80,[0 40],0,"",
+Px.006,3°MES,px006_40_2.mat,B[16x2500]double EEG_all[16x39128]double stims[1x80]double,EEG_all,16,39128,156.512,0,80,[0 40],0,"",
+Px.006,6°MES,PX006_40img_6.mat,B[16x2500]double EEG_all[16x39360]double stims[1x80]double,EEG_all,16,39360,157.44,0,80,[0 40],0,"",10 canal(es) duplicado(s)
+Px.006,6°MES,Px006_10img_6.mat,B[16x2500]double EEG_all[16x39088]double stims[1x80]double,EEG_all,16,39088,156.352,0,80,[0 10],0,"",12 canal(es) duplicado(s)
+Px.006,6°MES,px006_10_6.mat,B[16x2500]double EEG_all[16x39112]double stims[1x80]double,EEG_all,16,39112,156.448,0,80,[0 10],0,"",10 canal(es) duplicado(s)
+Px.006,6°MES,px006_40_6.mat,B[16x2500]double EEG_all[16x39120]double stims[1x80]double,EEG_all,16,39120,156.48,0,80,[0 40],0,"",9 canal(es) duplicado(s)
+Px.007,1°MES,Px007_10img_1.mat,B[16x2500]double EEG_all[16x39112]double stims[1x80]double,EEG_all,16,39112,156.448,0,80,[0 10],0,"",
+Px.007,1°MES,Px007_40_1.mat,B[16x2500]double EEG_all[16x39136]double stims[1x80]double,EEG_all,16,39136,156.544,0,80,[0 40],0,"",
+Px.007,1°MES,Px007_40img_1.mat,B[16x2500]double EEG_all[16x39144]double stims[1x80]double,EEG_all,16,39144,156.576,0,80,[0 40],0,"",2 canal(es) con amplitud >10x la mediana
+Px.007,1°MES,px007_10_1.mat,B[16x2500]double EEG_all[16x39143]double stims[1x80]double,EEG_all,16,39143,156.572,0,80,[0 10],0,"",
+Px.007,3°MES,Px007_10img_3.mat,B[16x2500]double EEG_all[16x39136]double stims[1x80]double,EEG_all,16,39136,156.544,0,80,[0 10],0,"",
+Px.007,3°MES,Px007_40img_3.mat,B[16x2500]double EEG_all[16x39144]double stims[1x80]double,EEG_all,16,39144,156.576,0,80,[0 40],0,"",
+Px.007,3°MES,px007_10_2.mat,B[16x2500]double EEG_all[16x39176]double stims[1x80]double,EEG_all,16,39176,156.704,0,80,[0 10],0,"",13 canal(es) duplicado(s)
+Px.007,3°MES,px007_40_2.mat,B[16x2500]double EEG_all[16x39120]double stims[1x80]double,EEG_all,16,39120,156.48,0,80,[0 40],0,"",15 canal(es) duplicado(s)
+Px.007,6°MES,Px007_10_6.mat,B[16x2500]double EEG_all[16x39104]double stims[1x80]double,EEG_all,16,39104,156.416,0,80,[0 10],0,"",12 canal(es) duplicado(s)
+Px.007,6°MES,Px007_10img_6.mat,B[16x2500]double EEG_all[16x39104]double stims[1x80]double,EEG_all,16,39104,156.416,0,80,[0 10],0,"",12 canal(es) duplicado(s)
+Px.007,6°MES,Px007_40_6.mat,B[16x2500]double EEG_all[16x39096]double stims[1x80]double,EEG_all,16,39096,156.384,0,80,[0 40],0,"",11 canal(es) duplicado(s)
+Px.007,6°MES,Px007_40img_6.mat,B[16x2500]double EEG_all[16x39096]double stims[1x80]double,EEG_all,16,39096,156.384,0,80,[0 40],0,"",12 canal(es) duplicado(s)
+Px.008,1°MES,Px008_10img_1.mat,B[16x2500]double EEG_all[16x39056]double stims[1x80]double,EEG_all,16,39056,156.224,0,80,[0 10],0,"",
+Px.008,1°MES,Px008_40img_1.mat,B[16x2500]double EEG_all[16x39136]double stims[1x80]double,EEG_all,16,39136,156.544,0,80,[0 40],0,"",
+Px.008,1°MES,px008_10_1.mat,B[16x2500]double EEG_all[16x38528]double stims[1x80]double,EEG_all,16,38528,154.112,0,80,[0 10],0,"",2 canal(es) duplicado(s)
+Px.008,1°MES,px008_40_1.mat,B[16x2500]double EEG_all[16x39096]double stims[1x80]double,EEG_all,16,39096,156.384,0,80,[0 40],0,"",2 canal(es) duplicado(s)
+Px.008,3°MES,Px008_10img_3.mat,B[16x2500]double EEG_all[16x39144]double stims[1x80]double,EEG_all,16,39144,156.576,0,80,[0 40],0,"",11 canal(es) duplicado(s)
+Px.008,3°MES,Px008_40img_3.mat,B[16x2500]double EEG_all[16x39128]double stims[1x80]double,EEG_all,16,39128,156.512,0,80,[0 10],0,"",
+Px.008,3°MES,px008_10_3.mat,B[16x2500]double EEG_all[16x39096]double stims[1x80]double,EEG_all,16,39096,156.384,0,80,[0 10],0,"",
+Px.008,3°MES,px008_40_3.mat,B[16x2500]double EEG_all[16x39144]double stims[1x80]double,EEG_all,16,39144,156.576,0,80,[0 40],0,"",7 canal(es) duplicado(s)
+Px.008,6°MES,Px008_10_6.mat,B[16x2500]double EEG_all[16x39400]double stims[1x80]double,EEG_all,16,39400,157.6,0,80,[0 10],0,"",
+Px.008,6°MES,Px008_10img_6.mat,B[16x2500]double EEG_all[16x39448]double stims[1x80]double,EEG_all,16,39448,157.792,0,80,[0 10],0,"",
+Px.008,6°MES,Px008_40_6.mat,B[16x2500]double EEG_all[16x39168]double stims[1x80]double,EEG_all,16,39168,156.672,0,80,[0 40],0,"",
+Px.008,6°MES,Px008_40img_6.mat,B[16x2500]double EEG_all[16x39191]double stims[1x80]double,EEG_all,16,39191,156.764,0,80,[0 40],0,"",
+Px.009,1°MES,Px009_10img_1.mat,B[16x22384]double resps[80x1]double respsK[]string stims[320x1]double,B,16,22384,89.536,0,320,[0 10],NaN,"resps: 80 valores, 0 distintos de 0; respsK: 0",1 canal(es) con amplitud >10x la mediana
+Px.009,1°MES,Px009_40img_1.mat,B[16x22328]double resps[80x1]double respsK[]string stims[320x1]double,B,16,22328,89.312,0,320,[0 40],NaN,"resps: 80 valores, 0 distintos de 0; respsK: 0",11 canal(es) duplicado(s)
+Px.009,1°MES,px009_10_1.mat,B[16x22320]double resps[80x1]uint8 stims[80x1]uint8,B,16,22320,89.28,0,80,[0 10],NaN,"resps: 80 valores, 0 distintos de 0",2 canal(es) duplicado(s)
+Px.009,1°MES,px009_40_1.mat,B[16x22352]double resps[80x1]uint8 stims[80x1]uint8,B,16,22352,89.408,0,80,[0 40],NaN,"resps: 80 valores, 0 distintos de 0",13 canal(es) duplicado(s)
+Px.009,3°MES,Px009_10img_3.mat,B[16x2500]double EEG_all[16x39128]double stims[1x80]double,EEG_all,16,39128,156.512,0,80,[0 10],0,"",2 canal(es) duplicado(s); 1 canal(es) con amplitud >10x la mediana
+Px.009,3°MES,Px009_40img_3.mat,B[16x2500]double EEG_all[16x39128]double stims[1x80]double,EEG_all,16,39128,156.512,0,80,[0 10],0,"",2 canal(es) duplicado(s); 1 canal(es) con amplitud >10x la mediana
+Px.009,3°MES,px009_10_3.mat,B[16x2500]double EEG_all[16x39104]double stims[1x80]double,EEG_all,16,39104,156.416,0,80,[0 10],0,"",2 canal(es) duplicado(s); 1 canal(es) con amplitud >10x la mediana
+Px.009,3°MES,px009_40_3.mat,B[16x2500]double EEG_all[16x39128]double stims[1x80]double,EEG_all,16,39128,156.512,0,80,[0 10],0,"",2 canal(es) duplicado(s); 1 canal(es) con amplitud >10x la mediana
+Px.009,6°MES,Px009_10_6.mat,B[16x2500]double EEG_all[16x39360]double stims[1x80]double,EEG_all,16,39360,157.44,0,80,[0 10],0,"",10 canal(es) duplicado(s)
+Px.009,6°MES,Px009_10img_6.mat,B[16x2500]double EEG_all[16x39656]double stims[1x80]double,EEG_all,16,39656,158.624,0,80,[0 10],0,"",
+Px.009,6°MES,Px009_40_6.mat,B[16x2500]double EEG_all[16x39392]double stims[1x80]double,EEG_all,16,39392,157.568,0,80,[0 40],0,"",4 canal(es) duplicado(s)
+Px.009,6°MES,Px009_40img_6.mat,B[16x2500]double EEG_all[16x39408]double stims[1x80]double,EEG_all,16,39408,157.632,0,80,[0 40],0,"",
+Px.010,1°MES,Px010_10img_1.mat,B[16x2500]double EEG_all[16x39056]double stims[1x80]double,EEG_all,16,39056,156.224,0,80,[0 10],0,"",2 canal(es) duplicado(s)
+Px.010,1°MES,Px010_40img_1.mat,B[16x2500]double EEG_all[16x39128]double stims[1x80]double,EEG_all,16,39128,156.512,0,80,[0 40],0,"",2 canal(es) duplicado(s)
+Px.010,1°MES,px010_10_1.mat,B[16x22328]double resps[80x1]uint8 stims[80x1]uint8,B,16,22328,89.312,0,80,[0 10],NaN,"resps: 80 valores, 0 distintos de 0",11 canal(es) duplicado(s)
+Px.010,1°MES,px010_40_1.mat,B[16x2500]double EEG_all[16x39112]double stims[1x80]double,EEG_all,16,39112,156.448,0,80,[0 40],0,"",3 canal(es) duplicado(s)
+Px.010,3°MES,Px010_10img_3.mat,B[16x2500]double EEG_all[16x39032]double stims[1x80]double,EEG_all,16,39032,156.128,0,80,[0 10],0,"",14 canal(es) duplicado(s)
+Px.010,3°MES,Px010_40img_3.mat,B[16x2500]double EEG_all[16x39127]double stims[1x80]double,EEG_all,16,39127,156.508,0,80,[0 40],0,"",14 canal(es) duplicado(s)
+Px.010,3°MES,px010_10_3.mat,B[16x2500]double EEG_all[16x39120]double stims[1x80]double,EEG_all,16,39120,156.48,0,80,[0 10],0,"",11 canal(es) duplicado(s)
+Px.010,3°MES,px010_40_3.mat,B[16x2500]double EEG_all[16x39040]double stims[1x80]double,EEG_all,16,39040,156.16,0,80,[0 40],0,"",14 canal(es) duplicado(s)

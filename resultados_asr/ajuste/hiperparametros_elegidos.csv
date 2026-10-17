@@ -1,0 +1,5 @@
+modelo,especificacion
+kNN (ajustado),kNN|K=20;dist=manhattan;peso=inv|ig24
+SVM (ajustado),SVM|C=1;E=1;filtro=0;kernel=poly|ig24
+MLP (ajustado),MLP|H=3;L=0.01;N=500;V=0|ninguna
+RF (ajustado),RF|K=3;arboles=300;prof=0|ig16

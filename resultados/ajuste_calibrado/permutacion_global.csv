@@ -1,0 +1,2 @@
+modelo,acc_observada,acc_perm_media,acc_perm_de,acc_perm_max,n_perm,p
+MLP (ajustado),40.5128205128205,33.3478632478633,1.68514495537482,37.2649572649573,100,0.0099009900990099

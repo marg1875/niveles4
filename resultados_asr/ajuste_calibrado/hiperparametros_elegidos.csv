@@ -1,0 +1,5 @@
+modelo,especificacion
+kNN (ajustado),kNN|K=30;dist=euclid;peso=ninguna|ig8
+SVM (ajustado),SVM|C=0.1;E=3;filtro=0;kernel=poly|ig8
+MLP (ajustado),MLP|H=3;L=0.01;N=500;V=0|ninguna
+RF (ajustado),RF|K=3;arboles=100;prof=0|ig16

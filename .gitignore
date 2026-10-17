@@ -1,0 +1,26 @@
+# Datos clínicos (EEG de pacientes): nunca se suben
+Datos/
+*.mat
+# Artículos de referencia (derechos de autor)
+pdf/
+# Resultados pesados: se conservan solo los CSV de resumen
+*.arff
+*.png
+*.fig
+*.log
+*.txt
+*.out.txt
+cache/
+senales/
+**/arff/
+**/weka/
+resultados_prueba/
+# Entorno local
+.remember/
+.claude/
+*.asv
+*.tmp
+caracteristicas/
+predicciones*.csv
+*_prueba/
+*_por_sesion.csv

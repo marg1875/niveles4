@@ -89,6 +89,26 @@ classdef PruebasFractales < matlab.unittest.TestCase
             tc.verifyEqual(mean(a), 0.5, 'AbsTol', 0.1);
         end
 
+        function dfa3YTraslape(tc)
+            rng(19); R = randn(10, 2048); B = cumsum(R, 2);
+            c = tc.cfg; ns = [8 10 12 16 20 24 32 40 48 64 80 96 128];
+            tc.verifyEqual(mean(dfa_exponente(R, c, ns, 3)), 0.5, 'AbsTol', 0.1);
+            tc.verifyEqual(mean(dfa_exponente(B, c, ns, 3)), 1.5, 'AbsTol', 0.15);
+            F1 = dfa_curva(R, ns, 1, 1); F2 = dfa_curva(R, ns, 1, 0.5);
+            tc.verifyEqual(mean(F2), mean(F1), 'RelTol', 0.05);   % traslape: misma F (en promedio), menos varianza
+            % rejilla por longitud de ventana: límites y nombres
+            cc = c; cc.calib_hd.dfa_ordenes = 1:3; cc.calib_hd.dfa_pasos = [1 0.5]; cc.calib_hd.prefijo = 'W250';
+            [K, lay] = candidatos_hig_dfa(cc, struct('nombre', {}, 'modo', {}, 'm_max', {}, 'm_min', {}), 250);
+            tc.verifyLessThanOrEqual(lay.kmax, 62);
+            tc.verifyTrue(any(strcmp({K.nombre}, 'W250DFAto8a64')));
+            tc.verifyFalse(any(strcmp({K.nombre}, 'W250DFAt8a128')));   % 128 > 250/3 sin traslape
+            V = randn(16, 250);
+            [X, n] = caracteristicas_desde_curvas(curvas_ventana(V, cc, struct('nombre', {}, 'modo', {}, 'm_max', {}, 'm_min', {}), lay), K, lay, cc);
+            tc.verifyEqual(numel(n), 16 * numel(K));
+            tc.verifyEqual(X(startsWith(n, 'W250DFAto8a64_')).', dfa_exponente(V, struct('fractales', struct('dfa_min_escalas', 4)), ...
+                lay.ns(lay.ns >= 8 & lay.ns <= 64), 3, 0.5), 'AbsTol', 1e-10);
+        end
+
         function ventanaNombresYOrden(tc)
             rng(16); V = randn(16, 512);
             base = struct('nombre', 'Re16a2', 'modo', 'ecuacion13', 'm_max', 16, 'm_min', 2);

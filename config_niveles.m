@@ -162,6 +162,51 @@ cfg.calib_hd.base_hurst      = {'Re16a2','Re64a4','Re64a2','Re128a4'};   % refer
 cfg.calib_hd.top_familia     = 6;          % finalistas por familia (pares y combinaciones)
 cfg.calib_hd.n_permutaciones = 1000;
 
+%% ------------------------------------- Laboratorio Higuchi/DFA (etapa 12)
+cfg.lab.carpeta     = 'laboratorio';
+cfg.lab.L           = [250 375 512 700 1000];   % 1, 1.5, 2, 2.8 (Niveles3) y 4 s
+cfg.lab.hig_kmin    = [1 2 3 4 6 8 12 16];
+cfg.lab.hig_kmax    = [6 8 10 12 16 20 24 32 48 64 96 128 192 250];   % se limita a L/4
+cfg.lab.dfa_ns      = [4 5 6 8 10 12 16 20 24 32 40 48 64 80 96 128 170 250 333 500];
+cfg.lab.dfa_ordenes = 1:3;                       % DFA1, DFA2, DFA3
+cfg.lab.dfa_pasos   = [1 0.5];                   % ventanas internas sin / con 50 % de traslape
+cfg.lab.top         = 5;                         % finalistas por familia y criterio
+cfg.lab.bloque      = 25;                        % candidatos por trabajo (LOSO + excedente)
+
+%% ------------------------------------- Complejidad: todas las familias (etapa 13)
+cfg.complejidad.L          = [512 700 1000];
+cfg.complejidad.hig_kmin   = [1 2 3 4 6 8 12 16];
+cfg.complejidad.hig_kmax   = [6 8 10 12 16 20 24 32 48 64 96 128 192 250];
+cfg.complejidad.ns         = [4 5 6 8 10 12 16 20 24 32 40 48 64 80 96 128 170 250 333];
+cfg.complejidad.n_min      = [4 5 6 8 10 16 24 32];          % rejilla dispersa de rangos
+cfg.complejidad.n_max      = [16 20 24 32 48 64 96 128 170 250 333];
+cfg.complejidad.dfa_ordenes = 1:3;
+cfg.complejidad.dfa_pasos  = [1 0.5];
+cfg.complejidad.mf_ordenes = [1 3];
+cfg.complejidad.mf_q       = [-5 -3 -1 1 3 5];
+cfg.complejidad.mf_anchos  = [3 5];                          % h(-q) - h(q)
+cfg.complejidad.ms         = [2 3 4 6 8 12 16 24 32 48 64 96 128 192 250];
+cfg.complejidad.wavelets   = {'haar', 'db2', 'db4', 'sym4'};
+cfg.complejidad.psd_f      = [1 2 3 4 6 8 10 13 16 20 25 30 35 40 45];
+cfg.complejidad.box_s      = [4 8 16 32 64 128 256 512];
+cfg.complejidad.se_m       = 1:3;  cfg.complejidad.se_r = [0.1 0.15 0.2 0.25 0.3];  cfg.complejidad.se_tau = [1 2 3 5 8];
+cfg.complejidad.fe_r       = [0.1 0.2 0.3];                  cfg.complejidad.fe_tau = [1 2 4];
+cfg.complejidad.pe_d       = 3:6;  cfg.complejidad.pe_tau = [1 2 3 4 6 8 12 16];
+cfg.complejidad.lz_tau     = [1 2 4 8];
+cfg.complejidad.mse_S      = [3 5 8];
+cfg.complejidad.top_loso   = 30;                             % candidatos por familia y L que pasan a la LOSO
+cfg.complejidad.adelante_pool = 12;                         % familias candidatas en la selección hacia adelante
+cfg.complejidad.adelante_max  = 5;                          % familias como máximo en un conjunto
+cfg.complejidad.n_perm     = 1000;
+cfg.complejidad.max_finalistas = Inf;
+cfg.complejidad.carpeta    = 'complejidad';
+
+%% ------------------------------------- MFDFA h(+1) + Higuchi (etapa 14)
+cfg.mfh.L        = 1000;                                     % ventanas de 4 s (curvas de la etapa 13)
+cfg.mfh.familias = {'MFhp1', 'HIG', 'MFhp3', 'DFA3', 'WAV'};  % MF y HIG + controles
+cfg.mfh.top      = 6;                                        % mejores de cada familia que se combinan
+cfg.mfh.n_perm   = 1000;
+
 %% ------------------------------------------------------------- Weka
 cfg.weka.folds           = 5;
 cfg.weka.semilla         = 1;
@@ -246,7 +291,7 @@ cfg.eventos.conjuntos = {'Ro64a2+Re128a2', 'HO+HRS'};   % calibrado / referencia
 
 %% ---------------------------------------------------- Ejecución
 cfg.paralelo.activar   = true;
-cfg.paralelo.workers   = 12;   % 8 núcleos / 16 hilos: 12 rinde ~1.4x más que 7 sin agotar la RAM (32 GB)
+cfg.paralelo.workers   = 6;    % 8 núcleos: con 12-14 workers sostenidos el equipo se apagaba (corte de energía, Kernel-Power 41)
 cfg.guardar_senales    = true;
 cfg.modo_prueba        = false;   % true: solo Px006 mes 1, 2 duraciones, 2 configs
 cfg.etapas             = [1 2 3 4 5 6];

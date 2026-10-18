@@ -1,11 +1,12 @@
-function A = dfa_exponente(V, cfg, ns, orden)
+function A = dfa_exponente(V, cfg, ns, orden, paso)
 %DFA_EXPONENTE  Exponente alfa del análisis de fluctuaciones sin tendencia.
 %   A = dfa_exponente(V, cfg), V (C x N). Port de compute_dfa() (Niveles3;
 %   Peng et al., 1995): escalas n = unique(floor(logspace(log10(n_min),
 %   log10(0.33 N), 15))), n_min = max(16, 0.064 fs), con >= 3 ventanas;
 %   DFA1 (destendencia lineal, dfa_curva); alfa = pendiente de log10 F vs
 %   log10 n (>= 5 escalas, si no NaN).
-%   A = dfa_exponente(V, cfg, ns, orden): escalas y orden explícitos
+%   A = dfa_exponente(V, cfg, ns, orden, paso): escalas, orden y paso de
+%   ventana (dfa_curva; 1 = sin traslape) explícitos
 %   (calibración, etapa 10).
 %   Ruido blanco -> 0.5; ruido 1/f -> 1; movimiento browniano -> 1.5.
 p = cfg.fractales;
@@ -20,6 +21,7 @@ if nargin < 3
     orden = 1;
 end
 ok = std(double(V), 1, 2) >= 1e-8;
-F = dfa_curva(V, ns, orden);
+if nargin < 5, paso = 1; end
+F = dfa_curva(V, ns, orden, paso);
 A(ok) = pendiente_hurst(ns, F(ok, :), p.dfa_min_escalas);
 end

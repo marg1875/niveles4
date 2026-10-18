@@ -1,6 +1,6 @@
-function T = ventanas_tiempo_sesion(rutaS, sid, cond, fams, L, cfg, rechazos, extractor)
+function T = ventanas_tiempo_sesion(rutaS, sid, cond, fams, L, cfg, rechazos, extractor, paso)
 %VENTANAS_TIEMPO_SESION  Ventanas contiguas de todo el registro con su tiempo y validez.
-%   T = ventanas_tiempo_sesion(rutaS, sid, cond, fams, L, cfg, rechazos, extractor)
+%   T = ventanas_tiempo_sesion(rutaS, sid, cond, fams, L, cfg, rechazos, extractor, paso)
 %   Ventanas no traslapadas de L muestras (desde 0.5 s) de cada archivo de
 %   la sesión, con: nivel (corregido: si los dos archivos tienen stims
 %   distintos 10/40 se usa stims), minuto dentro del archivo y de la sesión
@@ -9,7 +9,10 @@ function T = ventanas_tiempo_sesion(rutaS, sid, cond, fams, L, cfg, rechazos, ex
 %   struct con umbral_z y min_canales; umbral_z = Inf -> sin rechazo).
 %   extractor (opcional): función V (C x L) -> fila de características; por
 %   defecto caracterizadores_limites(V, fams, cfg).
-if nargin < 8, extractor = @(V) caracterizadores_limites(V, fams, cfg); end
+%   paso (opcional): separación entre inicios de ventana (por defecto L,
+%   ventanas contiguas). Con paso > L quedan huecos; con paso < L, traslape.
+if nargin < 8 || isempty(extractor), extractor = @(V) caracterizadores_limites(V, fams, cfg); end
+if nargin < 9, paso = L; end
 S = load(rutaS);
 fs = cfg.fs;
 nivel = S.niveles;
@@ -25,7 +28,7 @@ for j = 1:numel(S.X)
     N = size(X, 2);
     off = minutes(hora(j) - seconds(N / fs) - t0);
     [~, arch] = fileparts(S.archivos{j});
-    inicios = round(0.5 * fs) + 1 : L : N - L + 1;
+    inicios = round(0.5 * fs) + 1 : paso : N - L + 1;
     val = true(numel(inicios), numel(rechazos));
     for r = 1:numel(rechazos)
         if isinf(rechazos(r).umbral_z), continue, end

@@ -250,6 +250,64 @@ Se comparan con Hurst y con Higuchi + DFA calibrados.
 - Permutación secuencial de Besag–Clifford (`permutacion_secuencial.m`): se detiene con 20
   excedentes, como máximo 1000 permutaciones.
 
+## Etapa 12 — Laboratorio Higuchi/DFA (ventaneo, orden y traslape)
+
+Archivos: `etapa12_laboratorio_hig_dfa.m` y `corrida_laboratorio.m` → `resultados_asr/laboratorio/`.
+
+**Qué se exploró:**
+- 5 longitudes de ventana: 1, 1.5, 2, 2.8 y 4 s.
+- DFA de orden 1, 2 y 3, con ventanas internas con y sin 50 % de traslape.
+- Higuchi con k_max ≤ L/4.
+- En total, ~3700 candidatos, evaluados con 3 criterios:
+  - 3 clases dentro de la sesión;
+  - excedente sobre el control de mitades;
+  - LOSO 10 vs 40.
+- Validación con anidado estricto: el candidato se elige sin la sesión de prueba.
+
+**Hallazgo:** **DFA3 (destendencia cúbica) en escalas cortas (n = 5–32 muestras, 20–128 ms) con
+ventanas largas (2.8–4 s)** gana a la vez en 3 clases (57 %) y en LOSO (63–65 %). Es la primera vez
+que los dos criterios coinciden.
+
+**Resultados honestos:**
+- Elegir por 3 clases sin ver la sesión de prueba da una LOSO de 63.3 % (9/13 sesiones, Wilcoxon
+  p = 0.052). Limitado a 4 s: 64.8 % (p = 0.027).
+- El criterio de excedente no generaliza (≈ 48 %).
+- La mejor combinación, HIG1a64 + DFAt5a24 a 4 s, da 67.4 % (permutación p = 0.009). Pero se eligió
+  mirando la LOSO, así que esa cifra es optimista.
+- La LOSO de una misma configuración varía ±3 puntos según la rejilla de ventanas.
+
+## Etapa 13 — Todas las familias de caracterización
+
+Archivos: `etapa13_complejidad.m` y `corrida_complejidad.m` → `resultados_asr/complejidad/`. Las
+familias están en `src/complejidad/` y se prueban en `pruebas/PruebasComplejidad.m`.
+
+**Qué se exploró:**
+- 29 familias y ~5700 candidatos, en ventanas de 2, 2.8 y 4 s:
+  - de escalamiento: Higuchi, DFA de orden 1–3, DMA, MFDFA (h(q) y ancho), varianza agregada,
+    momentos absolutos, Hurst por wavelets, exponente 1/f y box-counting;
+  - dimensiones directas: Katz, Petrosian, Sevcik, Hjorth y line length;
+  - entropías y complejidad: SampEn, FuzzyEn, PE, WPE, Lempel-Ziv y MSE.
+- Fases:
+  1. 3 clases para todos los candidatos;
+  2. LOSO para los 30 mejores de cada familia;
+  3. anidado estricto y selección hacia adelante anidada;
+  4. permutación secuencial de los finalistas.
+
+**Resultados:**
+- **FuzzyEn (r = 0.10, τ = 2)** es la mejor en 3 clases: 62.5 % (MLP 63.5 %). Pero el reposo correcto
+  baja a 1–3 % y su herencia sube a 93 %: la ganancia es huella del archivo. Entre sesiones da 61–66 %,
+  sin significancia: p de permutación 0.08–0.14 y anidado 62.2 % (p_W = 0.15).
+- **MFDFA h(+1), orden 3, n = 5–32 con ventana de 4 s** es la mejor en generalización:
+  - LOSO 66.1 %, con 1000 permutaciones (p = 0.017);
+  - anidado dentro de su familia: 66.1 % (p_W = 0.033);
+  - Px010-M1 con el orden invertido: 81–90 %;
+  - FIS 57.8 %.
+- Le siguen MFDFA h(+3), DFA3 con traslape, Hurst por wavelets (db4, octavas 1–3) y el exponente 1/f
+  (8–45 Hz), todos con 63–65 % y p ≈ 0.02–0.04.
+- Cuando el anidado se hace sobre todas las familias, la regla de 3 clases elige FuzzyEn y la LOSO
+  queda en 62.2 %.
+- Combinar familias no mejora: la selección hacia adelante anidada da 59–64 %.
+
 ## Decisiones y supuestos (leer antes de interpretar resultados)
 
 - **Montaje.** No es el Emotiv del artículo. Filas de `EEG_all`:

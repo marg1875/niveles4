@@ -10,25 +10,21 @@ C = lay.C; W = size(M, 1);
 ch = cfg.canales.nombres;
 X = nan(W, numel(K) * C);
 nombres = cell(1, numel(K) * C);
-curvas = struct('hig', log10(bloque(M, lay.o_hig, lay.kmax, C)), ...
-    'dfa1', log10(bloque(M, lay.o_dfa1, numel(lay.ns), C)), ...
-    'dfa2', log10(bloque(M, lay.o_dfa2, numel(lay.ns), C)));
+curvas = struct();
+for b = lay.bloques
+    curvas.(b.nombre) = log10(reshape(M(:, b.o + (1:b.K*C)), [], C, b.K));
+end
 for k = 1:numel(K)
     cols = (k-1)*C + (1:C);
     nombres(cols) = strcat(K(k).nombre, '_', ch);
     if strcmp(K(k).bloque, 'ref')
-        X(:, cols) = M(:, lay.o_ref + (K(k).i1 - 1)*C + (1:C));
+        X(:, cols) = M(:, (K(k).i1 - 1)*C + (1:C));
         continue
     end
     Y = curvas.(K(k).bloque)(:, :, K(k).i1:K(k).i2);          % W x C x n
     x = reshape(log10(K(k).x(K(k).i1:K(k).i2)), 1, 1, []);
     X(:, cols) = K(k).signo * pendiente_vec(x, Y, cfg.calib_hd.min_puntos_validos);
 end
-end
-
-function B = bloque(M, o, K, C)
-% Curva (ventanas x C x K) desde la fila aplanada (canal más rápido).
-B = reshape(M(:, o + (1:K*C)), [], C, K);
 end
 
 function s = pendiente_vec(x, Y, minp)

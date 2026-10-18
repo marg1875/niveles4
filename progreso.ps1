@@ -158,6 +158,49 @@ do {
         }
         if ([int]$p[0] -lt [int]$p[1]) { $fin = 0 }
     }
+    # Etapa 12: laboratorio Higuchi/DFA
+    $l12 = Join-Path $res 'laboratorio'
+    if (Test-Path $l12) {
+        $a = Join-Path $l12 'pasos.avance.txt'
+        $p = if (Test-Path $a) { (Get-Content $a -TotalCount 1) -split ' ' } else { @(0, 9) }
+        Barra 'Etapa 12 pasos' ([int]$p[0]) ([int]$p[1])
+        foreach ($L in 250, 375, 512, 700, 1000) {
+            $c3 = if (Test-Path "$l12\cache\A_W$L.mat") { 'listo' } elseif (Test-Path "$l12\cache\c3_W$L.mat") { 'curvas' } else { '-' }
+            $f = Join-Path $l12 "bc_W$L.avance.txt"
+            if (Test-Path $f) { $v = (Get-Content $f -TotalCount 1) -split ' '; Barra ("  W$L LOSO+exc (3c: $c3)") ([int]$v[0]) ([int]$v[1]) }
+            elseif ($c3 -ne '-') { Barra ("  W$L LOSO+exc (3c: $c3)") 0 1 }
+        }
+        foreach ($f in @(Get-ChildItem "$l12\perm_*.avance.txt" -ErrorAction SilentlyContinue)) {
+            $v = (Get-Content $f.FullName -TotalCount 1) -split ' '
+            Barra ('  ' + $f.BaseName.Replace('.avance', '') + ' (max)') ([int]$v[0]) ([int]$v[1])
+        }
+        if ([int]$p[0] -lt [int]$p[1]) { $fin = 0 }
+    }
+    # Etapa 13: complejidad (todas las familias)
+    $x13 = Join-Path $res 'complejidad'
+    if (Test-Path $x13) {
+        $a = Join-Path $x13 'pasos.avance.txt'
+        $p = if (Test-Path $a) { (Get-Content $a -TotalCount 1) -split ' ' } else { @(0, 9) }
+        Barra 'Etapa 13 pasos' ([int]$p[0]) ([int]$p[1])
+        foreach ($L in 512, 700, 1000) {
+            $c3 = Test-Path "$x13\cache\c3_W$L.mat"; $w = Test-Path "$x13\cache\w_W$L.mat"
+            $nA = @(Get-ChildItem "$x13\cache\A_W${L}_*.mat" -ErrorAction SilentlyContinue | Where-Object Name -notlike '*.tmp.mat').Count
+            if ($c3 -or $w -or $nA) {
+                Barra ("  W$L curvas 3c / contiguas") ([int]$c3 + [int]$w) 2
+                Barra ("  W$L fase 1 (3c, sesiones)") $nA 13
+                $f = Join-Path $x13 "loso_W$L.avance.txt"
+                if (Test-Path $f) { $v = (Get-Content $f -TotalCount 1) -split ' '; Barra ("  W$L fase 2 (LOSO)") ([int]$v[0]) ([int]$v[1]) }
+                if (Test-Path "$x13\adelante_W$L.avance.txt") { Barra ("  W$L hacia adelante") 1 1 }
+            }
+        }
+        $nf = @(Get-ChildItem "$x13\cache\final_*.mat" -ErrorAction SilentlyContinue).Count
+        if ($nf -gt 0) { Barra '  validacion final (hechos)' $nf ([math]::Max($nf, 20)) }
+        foreach ($f in @(Get-ChildItem "$x13\perm_*.avance.txt" -ErrorAction SilentlyContinue | Sort-Object LastWriteTime | Select-Object -Last 1)) {
+            $v = (Get-Content $f.FullName -TotalCount 1) -split ' '
+            Barra ('  ' + $f.BaseName.Replace('.avance', '') + ' (max)') ([int]$v[0]) ([int]$v[1])
+        }
+        if ([int]$p[0] -lt [int]$p[1]) { $fin = 0 }
+    }
     # Etapa 7: calibración
     $i7 = $txt.LastIndexOf('Etapa 7: calibraci')
     if ($i7 -ge 0) {

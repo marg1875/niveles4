@@ -201,6 +201,22 @@ do {
         }
         if ([int]$p[0] -lt [int]$p[1]) { $fin = 0 }
     }
+    # Etapa 15: controles de revisión
+    $r15 = Join-Path $res 'revision'
+    if (Test-Path $r15) {
+        $a = Join-Path $r15 'pasos.avance.txt'
+        $p = if (Test-Path $a) { (Get-Content $a -TotalCount 1) -split ' ' } else { @(0, 5) }
+        Barra 'Etapa 15 pasos' ([int]$p[0]) ([int]$p[1])
+        $nv = @(Get-ChildItem "$r15\cache\val_*.mat" -ErrorAction SilentlyContinue).Count
+        Barra '  LOSO/LOPO/voto (configs)' $nv 9
+        $no = @(Get-ChildItem "$r15\cache\orden_*.mat" -ErrorAction SilentlyContinue).Count
+        Barra '  orden vs nivel (configs)' $no 9
+        foreach ($f in @(Get-ChildItem "$r15\perm_*.avance.txt" -ErrorAction SilentlyContinue)) {
+            $v = (Get-Content $f.FullName -TotalCount 1) -split ' '
+            Barra ('  ' + $f.BaseName.Replace('.avance', '') + ' (max)') ([int]$v[0]) ([int]$v[1])
+        }
+        if ([int]$p[0] -lt [int]$p[1]) { $fin = 0 }
+    }
     # Etapa 7: calibración
     $i7 = $txt.LastIndexOf('Etapa 7: calibraci')
     if ($i7 -ge 0) {

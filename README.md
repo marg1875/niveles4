@@ -308,6 +308,30 @@ familias están en `src/complejidad/` y se prueban en `pruebas/PruebasComplejida
   queda en 62.2 %.
 - Combinar familias no mejora: la selección hacia adelante anidada da 59–64 %.
 
+## Etapa 15 — Controles de revisión
+
+Archivos: `etapa15_revision.m` y `corrida_revision.m` → `resultados_asr/revision/`.
+
+**Qué se analizó:**
+- LOSO y LOPO (dejando un paciente fuera), con permutación exacta por paciente (32 asignaciones;
+  p mínimo = 0.031) e intervalos de confianza por bootstrap de pacientes.
+- Voto por registro (26 archivos KMI) y decisión por sesión (13 sesiones).
+- Orden temporal frente a nivel: se entrena con la KMI de los otros días y se predicen los 4 registros
+  del día, que tienen su hora real (`hora_registro.m`).
+- Baselines: potencia θ/μ/β y CSP de 8–30 Hz.
+
+**Resultados:**
+- **Con LOPO** todo queda en 58–64 % y ninguna configuración es significativa por permutación de
+  pacientes (p ≥ 0.062).
+- **El voto por registro** lleva MFDFA h(+1) + Higuchi a 85 % de archivos y 85 % de sesiones bien
+  decididas (11/13, binomial p = 0.011). Ojo: los archivos de un mismo paciente no son independientes.
+- **Orden frente a nivel:** el registro KMI10, grabado ~4 min después del FIS10, se predice *menos*
+  "40" que el FIS10 (−0.05 a −0.16). Eso es lo contrario de lo que haría un clasificador de "más
+  tarde en el día", y el término de tiempo del modelo mixto es ≈ 0. El clasificador de KMI no
+  transfiere el nivel a la FIS (FIS40 − FIS10 ≈ 0), salvo la potencia de banda y FuzzyEn (+0.19 a +0.21).
+- **La potencia de banda con SVM ig8 iguala a MFDFA:** LOSO 64.7 % (p = 0.096) y LOPO 63.4 %. Con
+  regresión logística se cae a 42 %. CSP da 58 % (no significativo).
+
 ## Decisiones y supuestos (leer antes de interpretar resultados)
 
 - **Montaje.** No es el Emotiv del artículo. Filas de `EEG_all`:

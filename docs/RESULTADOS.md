@@ -72,6 +72,9 @@ y `resultados_car/puentes_por_archivo.csv`.
   - 51 en formato A (`EEG_all` + `stims` 1×80);
   - 5 en formato legado (Px009 mes 1 ×4 y px010_10_1): solo `B`, ~89 s, con `stims` de otro
     protocolo (`0 L 0 L…`, 320 entradas en KMI) que no se pueden alinear con la señal.
+  - **Los legados están a 250 Hz:** el notch de adquisición aparece a 60.00 Hz, igual que en el resto.
+    Sus ~89 s son reales y probablemente son un fragmento de un experimento de ~156 s grabado con
+    otro programa de captura.
 - **Cómo entran los legados:** solo a los análisis que usan la etiqueta del archivo (10 vs 40), no
   a los de 3 clases y reposo.
 - **En las secciones 1–15 los legados estaban excluidos:** 26 sesiones (25 completas) → 13 KMI y 12 FIS.

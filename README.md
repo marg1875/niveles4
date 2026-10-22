@@ -354,6 +354,14 @@ Archivos: `etapa15_revision.m` y `corrida_revision.m` → `resultados_asr/revisi
     - Repartidas sobre los 89 s implican un ciclo de 2.2 s, incompatible con el de 15.6 s del resto,
       así que no se sabe qué tramo del protocolo es la señal.
     - El argumento previo de un "ciclo de artefactos de 15–18 s" no se reprodujo y se descarta.
+  - **Frecuencia de muestreo verificada: 250 Hz.**
+    - El notch de 60 Hz que el equipo aplica al adquirir aparece a 60.00 Hz (−32 a −45 dB) en los 5
+      legados, igual que en los registros normales (Welch con ventanas de 8 s). Con otra frecuencia de
+      muestreo aparecería en 60·250/fs.
+    - El pico α/μ de Px009 está en 6.0–6.5 Hz tanto en los legados como en su mes 3.
+    - Por lo tanto `B` contiene ~89 s reales de señal. Como todos los experimentos duraban casi lo mismo
+      (~156 s) y se usó otro programa de captura, lo más probable es que `B` sea un fragmento del
+      experimento; la posición del fragmento no se conoce.
   - **Su marca "Created on" no es la hora de adquisición:** `px009_40_1` y `px010_10_1` tienen el
     mismo segundo, y el par KMI está separado 10 días. Las grabaciones son válidas; el problema es
     solo de metadatos.

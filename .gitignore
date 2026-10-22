@@ -24,3 +24,5 @@ caracteristicas/
 predicciones*.csv
 *_prueba/
 *_por_sesion.csv
+# Visor ICA: contiene extractos de EEG de pacientes
+**/visor_ica/

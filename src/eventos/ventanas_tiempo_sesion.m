@@ -16,7 +16,7 @@ if nargin < 9, paso = L; end
 S = load(rutaS);
 fs = cfg.fs;
 nivel = S.niveles;
-stimsMax = cellfun(@max, S.stims);
+stimsMax = cellfun(@(s) max([s(:); NaN]), S.stims);     % legados: stims vacío -> NaN (se usa el nombre)
 if numel(S.X) == 2 && all(sort(stimsMax) == [10 40]), nivel = stimsMax; end
 hora = NaT(1, numel(S.X));
 for j = 1:numel(S.X), hora(j) = hora_mat(S.archivos{j}); end

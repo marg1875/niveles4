@@ -24,6 +24,17 @@ son de trabajo (no de calidad de publicación) y se rehacerán en otra sesión.
 
 ## 0. Resumen ejecutivo
 
+> **Actualización (22-oct-2026): los 5 registros legados ya están incluidos.**
+>
+> Las secciones 1–15 se calcularon con 13 sesiones KMI y 12 FIS, porque esos 5 archivos se habían
+> excluido sin consultar. La **sección 17** repite los resultados del artículo con los **56 archivos
+> (14 sesiones KMI y 14 FIS)**. Con ellos **las conclusiones cambian**:
+> - MFDFA h(+1) baja de 66.1 % a **61.1 %** y deja de ser significativa (p = 0.12).
+> - La potencia de banda θ/μ/β (66.6 %) y FuzzyEn (66.3 %) pasan a ser las mejores, aunque tampoco
+>   son significativas por paciente (p = 0.062).
+>
+> Para el artículo, la referencia es la **sección 17**.
+
 1. **Dentro de la sesión** los niveles 10/40 se separan con 70–92 % y 3 clases con 50–63 %.
    Gran parte de eso es **huella del archivo**:
    - el reposo hereda la clase de su archivo en un 72–94 % de los casos;
@@ -57,10 +68,18 @@ y `resultados_car/puentes_por_archivo.csv`.
 
 **Registros**
 - 5 pacientes con ECV (Px006–Px010), meses 1/3/6, KMI y FIS al 10 % y 40 %.
-- 56 archivos: **51 válidos** (formato A: `EEG_all` + `stims` 1×80).
-- 5 excluidos por formato legado (Px009 mes 1 ×4 y px010_10_1: solo `B`, ~89 s, sin temporización
-  alineable).
-- **26 sesiones** (25 completas con 10 y 40) → **13 sesiones KMI** y 12 FIS.
+- **56 archivos, todos válidos:**
+  - 51 en formato A (`EEG_all` + `stims` 1×80);
+  - 5 en formato legado (Px009 mes 1 ×4 y px010_10_1): solo `B`, ~89 s, con `stims` de otro
+    protocolo (`0 L 0 L…`, 320 entradas en KMI) que no se pueden alinear con la señal.
+- **Cómo entran los legados:** solo a los análisis que usan la etiqueta del archivo (10 vs 40), no
+  a los de 3 clases y reposo.
+- **En las secciones 1–15 los legados estaban excluidos:** 26 sesiones (25 completas) → 13 KMI y 12 FIS.
+- **Con los legados (sección 17):** 28 sesiones completas → **14 KMI y 14 FIS**.
+  - Px009 gana su mes 1 en KMI y en FIS.
+  - Px010-M1-FIS se completa.
+- **Horas de los legados:** su marca "Created on" no es la de grabación. Por ejemplo, `px009_40_1`
+  y `px010_10_1` tienen la misma hora exacta, 23-feb-2026 18:55:19.
 
 **Etiquetas de `stims`**
 - `stims` es una secuencia de etiquetas `[0 0 0 0 L L L L] × 10` sin marcas de tiempo; se asume
@@ -732,6 +751,123 @@ da la fracción de ventanas predichas como "40" y un modelo mixto
 | `resultados_asr/complejidad/` | Etapa 13 (`ranking_familias.csv`, `ranking_candidatos.csv`, `anidado.csv`, `adelante.csv`, `validacion_final.csv`) |
 | `resultados_asr/mfdfa_higuchi/` | Etapa 14 |
 | `resultados_asr/revision/` | Etapa 15 |
+| `resultados_asr/legados/` | Sección 17: etapas 14 y 15 con los 5 registros legados (14 KMI / 14 FIS) |
 
 Los archivos pesados (`.mat`, `.arff`, cachés, características por ventana) y los datos de
 pacientes no se versionan; se regeneran con los scripts `corrida_*.m` (ver README).
+
+---
+
+## 17. Resultados con los 5 registros legados incluidos (14 sesiones KMI / 14 FIS)
+
+Archivos: `corrida_legados.m` → `resultados_asr/legados/` (`mfdfa_higuchi/` y `revision/`).
+
+**Qué se recalculó:**
+- Mismo pipeline final (ASR k = 30 + CAR + ICA) para las 3 sesiones afectadas:
+
+  | Sesión | Estado | ICA | ASR (fracción reparada) |
+  |---|---|---|---|
+  | Px009-M1-KMI | nueva | **no convergió** en 3000 iteraciones; 2 componentes removidas | 6.5 / 15 % |
+  | Px009-M1-FIS | nueva | convergió; 1 componente removida | 8.8 / 0.6 % |
+  | Px010-M1-FIS | ahora completa | convergió; 1 componente removida | 13.6 / 3.1 % |
+
+- Con esto, **7 de las 28 sesiones** no convergen en el ICA.
+- Ventanas contiguas: las de la etapa 13 más las sesiones nuevas.
+  - 2 s: 4090 ventanas (+291).
+  - 4 s: 2074 ventanas (+148); de ellas, 1060 son de KMI.
+- Se repitieron la etapa 14 (MFDFA h(+1) + Higuchi) y la etapa 15 (LOSO, LOPO, voto, baselines y orden
+  contra nivel). Esta vez hubo **permutación por sesión para todas las configuraciones**.
+- Px009-M1 y Px010-M1 no entran al control de orden contra nivel: sus horas no son reales.
+
+### 17.1 Validación de las configuraciones fijas (KMI 10 vs 40; IC 95 % por bootstrap de pacientes)
+
+| Configuración | LOSO (antes, 13 ses.) | **LOSO (14 ses.)** | p por sesión (perm.) | Sesiones > 50 % | **LOPO** | p por paciente |
+|---|---|---|---|---|---|---|
+| **Potencia θ/μ/β (SVM ig8)** | 64.7 % | **66.6 %** [55–80] | 0.065 | 11/14 | **66.0 %** [54–81] | 0.062 |
+| **FuzzyEn r = 0.10, τ = 2** | 63.3 % | **66.3 %** [56–77] | **0.041** | 11/14 | 65.4 % [53–78] | 0.062 |
+| DFA3 con traslape, n = 5–32 | 64.8 % | 62.2 % [47–80] | 0.108 | 9/14 | 55.9 % | 0.28 |
+| MFDFA h(+1) n5–32 | 66.1 % | 61.1 % [44–79] | 0.119 | 9/14 | 55.6 % | 0.22 |
+| MFDFA h(+1) n5–24 | 64.6 % | 60.5 % [45–78] | 0.152 | 8/14 | 58.0 % | 0.25 |
+| MFDFA h(+1) n6–24 + HIG k12–32 | 66.8 % | 59.6 % [47–72] | 0.139 | 9/14 | 55.8 % | 0.25 |
+| Hurst Re64a2 + Re128a4 (2 s) | 59.1 % | 56.2 % [54–58] | 0.096 | 9/14 | 55.1 % | 0.19 |
+| Potencia θ/μ/β (LogReg) | 42.1 % | 48.1 % | 0.58 | 7/14 | 43.2 % | 0.81 |
+| CSP 8–30 Hz + LogReg | 58.1 % | 44.5 % | 0.83 | 5/14 | 43.7 % | 0.88 |
+
+### 17.2 Voto por registro (28 archivos KMI) y decisión por sesión (14)
+
+| Configuración | Voto por archivo (LOSO) | Decisión por sesión (LOSO) | Voto por archivo (LOPO) | Decisión por sesión (LOPO) |
+|---|---|---|---|---|
+| **FuzzyEn** | **79 %** (p = 0.002) | **79 %, 11/14** (p = 0.029) | 75 % | 79 % |
+| **Potencia θ/μ/β** | 75 % (p = 0.006) | **79 %, 11/14** (p = 0.029) | 79 % | 79 % |
+| MFDFA h(+1) n5–32 | 71 % (p = 0.018) | 64 % (p = 0.21) | 64 % | 57 % |
+| MFDFA h(+1) n5–24 | 71 % (p = 0.018) | 57 % (p = 0.40) | 64 % | 57 % |
+| Hurst | 71 % (p = 0.018) | 64 % (p = 0.21) | 61 % | 57 % |
+| MFDFA h(+1) + Higuchi | 64 % (p = 0.092) | 64 % (p = 0.21) | 64 % | 57 % |
+| DFA3 | 64 % (p = 0.092) | 64 % (p = 0.21) | 71 % | 57 % |
+
+### 17.3 MFDFA h(+1) + Higuchi con 14 sesiones (etapa 14 repetida)
+
+**Mejores configuraciones** (SVM ig8, permutación secuencial):
+
+| Configuración | LOSO | p | Sesiones > 50 % | Px010 | FIS |
+|---|---|---|---|---|---|
+| MFDFA h(+1) o3 n6–16 + HIG k12–16 | 64.3 % | 0.017 (1000) | 11/14 | 77 % | 52.5 % |
+| MFDFA h(+1) o3 n6–16 + wavelets db4, octavas 4–6 | 64.2 % | 0.013 (1000) | 10/14 | 84 % | 47.4 % |
+| MFDFA h(+1) o3 n5–32 + HIG k12–16 | 64.0 % | 0.050 | 10/14 | 79 % | 47.8 % |
+| MFDFA h(+1) o3 n6–32 + HIG k12–16 | 63.9 % | 0.038 | 10/14 | 78 % | 48.7 % |
+| Wavelets db4, octavas 1–3 (individual) | 62.5 % | — | 9/14 | — | — |
+| DFA3 con traslape, n = 5–32 (individual) | 62.2 % | — | 9/14 | — | — |
+| MFDFA h(+3) o3 n5–24 (individual) | 62.1 % | — | 9/14 | — | — |
+| Mejor MFDFA h(+1) individual (o3 n6–24) | 61.1 % | 0.103 | 8/14 | 90 % | 53.6 % |
+| Mejor Higuchi individual (k12–96) | 59.5 % | 0.032 | 10/14 | 58 % | 54.3 % |
+
+**Con otros clasificadores**, el mejor par da 62.3 % con ig16 (p = 0.020) y 57.1 % sin selección (p = 0.12).
+
+**LOSO anidada estricta de todo el procedimiento:**
+
+| Regla | LOSO | Sesiones > 50 % | p (Wilcoxon) | Configuración más elegida |
+|---|---|---|---|---|
+| Solo MFDFA | 57.8 % | 8/14 | 0.22 | o3 n5–20 (5/14) |
+| MFDFA + Higuchi | 56.9 % | 9/14 | 0.22 | o3 n5–20 + HIG k12–16 (2/14) |
+| Solo Higuchi | 53.6 % | 8/14 | 0.49 | k12–16 (8/14) |
+
+### 17.4 Sesiones que mueven el resultado
+
+Fracción de ventanas predichas como "40" en cada archivo (LOSO). La predicción es correcta cuando el
+archivo de 40 tiene mayor fracción que el de 10.
+
+| Sesión | MFDFA h(+1) n5–32 (10 / 40) | Potencia θ/μ/β (10 / 40) | FuzzyEn (10 / 40) |
+|---|---|---|---|
+| **Px009-M1-KMI (legado)** | 0.91 / 0.45 → **invertida** | 0.09 / 0.77 → correcta | 0.27 / 0.91 → correcta |
+| Px008-M6-KMI | 0.46 / 0.69 → correcta | 0.92 / 0.03 → **invertida** | 0.95 / 0.23 → **invertida** |
+| Px007-M3-KMI | 0.23 / 0.90 → correcta | 0.21 / 0.97 → correcta | 0.15 / 1.00 → correcta |
+
+Con 14 sesiones, **una sola sesión mueve la exactitud media ~3–5 puntos**:
+- la sesión legada nueva invierte a MFDFA;
+- Px008-M6, con electrodos puenteados, invierte a la potencia de banda y a FuzzyEn.
+
+### 17.5 Orden temporal frente a nivel
+
+Mismos 12 días con hora real que en la sección 14.2, así que el resultado es idéntico:
+- KMI10 se predice menos "40" que FIS10 en todas las configuraciones;
+- el término de tiempo es ≈ 0.
+
+### 17.6 Qué cambia en las conclusiones
+
+1. **Ningún método supera de forma robusta al resto.** El ranking depende de qué sesiones entran:
+   - con 13 sesiones ganaba MFDFA h(+1), con 66 % y p = 0.017;
+   - con 14 sesiones ganan la potencia de banda (66.6 %) y FuzzyEn (66.3 %), y MFDFA cae a 61 %
+     (p = 0.12).
+2. **La evidencia de información del nivel entre sesiones se mantiene en ~60–67 %**, con LOPO de
+   55–66 %, pero en el límite de la significancia:
+   - el mejor p por paciente es 0.062, a un paso del mínimo posible con 5 pacientes (0.031);
+   - el mejor p por sesión es 0.041 (FuzzyEn);
+   - la LOSO anidada estricta queda en 54–58 %.
+3. **Por registro**, FuzzyEn y la potencia de banda deciden bien 11 de 14 sesiones (p = 0.029) y
+   aciertan 75–79 % de los archivos.
+4. **FuzzyEn generaliza mejor de lo que parecía con 13 sesiones** (p = 0.041 por sesión). Sigue siendo
+   la característica con más huella dentro de la sesión (herencia del reposo de 93 %, sección 12.5),
+   así que su ventaja hay que interpretarla con cautela.
+5. **Los resultados son frágiles ante la composición de la muestra.** La conclusión defendible para el
+   artículo es la existencia de información del nivel a nivel de registro, no la superioridad de una
+   familia de características. **Hacen falta más sesiones y pacientes.**

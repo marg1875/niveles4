@@ -16,6 +16,10 @@ function A = segmentar_por_estimulos(N, stims, cfg)
 %   así que todas las duraciones analizan los mismos instantes y el mismo
 %   número de instancias.
 fs = cfg.fs;
+if isempty(stims)          % registro legado: sin temporización de estímulos -> sin anclas
+    A = table(zeros(0,1), false(0,1), zeros(0,1), zeros(0,1), 'VariableNames', {'bloque','tarea','ancla','centro'});
+    return
+end
 K = numel(stims);
 bordes = round((0:K) * N / K);              % la entrada k: bordes(k)+1 .. bordes(k+1)
 ini = [1, find(diff(stims) ~= 0) + 1];      % primera entrada de cada bloque

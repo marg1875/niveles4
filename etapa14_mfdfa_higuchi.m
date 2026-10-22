@@ -17,7 +17,7 @@ function etapa14_mfdfa_higuchi(cfg)
 %   -> resultados/mfdfa_higuchi/*.csv
 
 p = cfg.mfh;
-dirM = fullfile(cfg.rutas.resultados, 'mfdfa_higuchi');
+dirM = fullfile(cfg.rutas.resultados, p.carpeta);
 dirC = fullfile(dirM, 'cache');
 for d = {dirM, dirC}
     if ~isfolder(d{1}), mkdir(d{1}); end
@@ -31,7 +31,7 @@ for b = {'Re64a2', 'Re128a4'}
 end
 L = p.L; pre = sprintf('W%d', L);
 [K, lay] = caract_registro(cfg, L, baseH);
-archW = fullfile(cfg.rutas.resultados, 'complejidad', 'cache', ['w_' pre '.mat']);
+archW = fullfile(cfg.rutas.resultados, p.dir_w, ['w_' pre '.mat']);
 Hc = readtable(fullfile(cfg.rutas.raiz, 'resultados', 'ajuste_calibrado', 'hiperparametros_elegidos.csv'), ...
     'Delimiter', ',', 'TextType', 'char');
 Hc.Properties.VariableNames = {'modelo','especificacion'};

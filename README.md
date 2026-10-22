@@ -345,10 +345,15 @@ Archivos: `etapa15_revision.m` y `corrida_revision.m` → `resultados_asr/revisi
 - **Temporización.** `stims` no trae tiempos; se asume espaciado uniforme. La evidencia está en
   `qa_alineacion_estimulos.m`: en la ejecución física la potencia de artefactos sube en la mitad de
   tarea del ciclo.
-- **Archivos excluidos.** Los 4 de Px.009 mes 1 y `px010_10_1` tienen formato *legado* (solo `B`,
-  ~89 s). Su ciclo real de artefactos (~15–18 s) no coincide con el que implican sus `stims`, así que
-  no se pueden etiquetar. `B` en los archivos normales es una copia de las últimas 2500 muestras de
-  `EEG_all` y se ignora.
+- **Registros legados.** Los 4 de Px.009 mes 1 y `px010_10_1` tienen formato *legado* (solo `B`,
+  ~89 s).
+  - **Hasta el 21-oct-2026 se excluían**, sin consultar, porque su ciclo real de artefactos
+    (~15–18 s) no coincide con el que implican sus `stims`.
+  - **Ahora se incluyen** (`cfg.inventario.excluir_formato_legado = false`) en todos los análisis
+    que usan la etiqueta del archivo (10 vs 40). Quedan fuera solo de los que necesitan los bloques
+    de reposo/tarea: `segmentar_por_estimulos` les asigna 0 anclas.
+  - Resultados con ellos: `corrida_legados.m` y `docs/RESULTADOS.md`, sección 17.
+  - `B` en los archivos normales es una copia de las últimas 2500 muestras de `EEG_all` y se ignora.
 - **Nivel desde el nombre del archivo.** En Px006-M3 y Px009-M3 los cuatro archivos tienen el mismo
   valor en `stims` (40 y 10, respectivamente), y en Px008-M3-KMI están intercambiados respecto al
   nombre. Se usa el nombre, como en Niveles3; `stims` solo aporta la división reposo/tarea. Las

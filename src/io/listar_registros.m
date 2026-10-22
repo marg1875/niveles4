@@ -65,8 +65,17 @@ end
 
 function [ok, motivo] = validar(fila, st, tam, cfg)
 ok = false; motivo = '';
-if strcmp(fila.formato{1}, 'legado') && cfg.inventario.excluir_formato_legado
-    motivo = 'formato legado (solo B): stims no alineable con la señal'; return
+if strcmp(fila.formato{1}, 'legado')
+    if cfg.inventario.excluir_formato_legado
+        motivo = 'formato legado (solo B): stims no alineable con la señal'; return
+    end
+    % Incluido solo para los análisis por etiqueta de archivo (10 vs 40):
+    % sus stims no tienen temporización alineable (ver cargar_registro).
+    if tam(1) ~= numel(cfg.canales.nombres) || isnan(fila.nivel)
+        motivo = 'formato legado con canales o nivel no válidos'; return
+    end
+    ok = true; motivo = 'aviso: formato legado (solo B, ~89 s): sin bloques de stims, solo 10 vs 40';
+    return
 end
 if tam(1) ~= numel(cfg.canales.nombres)
     motivo = sprintf('%d canales (se esperaban %d)', tam(1), numel(cfg.canales.nombres)); return

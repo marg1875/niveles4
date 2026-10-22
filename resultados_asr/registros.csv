@@ -1,57 +1,57 @@
 archivo,paciente,mes,condicion,nivel,formato,n_muestras,n_stims,estado,motivo
-px006_10_1,Px006,1,FIS,10,A,39072,80,ok,
-px006_40_1,Px006,1,FIS,40,A,39143,80,ok,
-Px006_10img_1,Px006,1,KMI,10,A,39104,80,ok,
-Px006_40img_1,Px006,1,KMI,40,A,39112,80,ok,
-px006_10_2,Px006,3,FIS,10,A,39071,80,ok,aviso: nivel del nombre (10) ~= max(stims) (40)
-px006_40_2,Px006,3,FIS,40,A,39128,80,ok,
-Px006_10img_3,Px006,3,KMI,10,A,39112,80,ok,aviso: nivel del nombre (10) ~= max(stims) (40)
-Px006_40img_3,Px006,3,KMI,40,A,39096,80,ok,
-px006_10_6,Px006,6,FIS,10,A,39112,80,ok,
-px006_40_6,Px006,6,FIS,40,A,39120,80,ok,
-Px006_10img_6,Px006,6,KMI,10,A,39088,80,ok,
-PX006_40img_6,Px006,6,KMI,40,A,39360,80,ok,
-px007_10_1,Px007,1,FIS,10,A,39143,80,ok,
-Px007_40_1,Px007,1,FIS,40,A,39136,80,ok,
-Px007_10img_1,Px007,1,KMI,10,A,39112,80,ok,
-Px007_40img_1,Px007,1,KMI,40,A,39144,80,ok,
-px007_10_2,Px007,3,FIS,10,A,39176,80,ok,
-px007_40_2,Px007,3,FIS,40,A,39120,80,ok,
-Px007_10img_3,Px007,3,KMI,10,A,39136,80,ok,
-Px007_40img_3,Px007,3,KMI,40,A,39144,80,ok,
-Px007_10_6,Px007,6,FIS,10,A,39104,80,ok,
-Px007_40_6,Px007,6,FIS,40,A,39096,80,ok,
-Px007_10img_6,Px007,6,KMI,10,A,39104,80,ok,
-Px007_40img_6,Px007,6,KMI,40,A,39096,80,ok,
-px008_10_1,Px008,1,FIS,10,A,38528,80,ok,
-px008_40_1,Px008,1,FIS,40,A,39096,80,ok,
-Px008_10img_1,Px008,1,KMI,10,A,39056,80,ok,
-Px008_40img_1,Px008,1,KMI,40,A,39136,80,ok,
-px008_10_3,Px008,3,FIS,10,A,39096,80,ok,
-px008_40_3,Px008,3,FIS,40,A,39144,80,ok,
-Px008_10img_3,Px008,3,KMI,10,A,39144,80,ok,aviso: nivel del nombre (10) ~= max(stims) (40)
-Px008_40img_3,Px008,3,KMI,40,A,39128,80,ok,aviso: nivel del nombre (40) ~= max(stims) (10)
-Px008_10_6,Px008,6,FIS,10,A,39400,80,ok,
-Px008_40_6,Px008,6,FIS,40,A,39168,80,ok,
-Px008_10img_6,Px008,6,KMI,10,A,39448,80,ok,
-Px008_40img_6,Px008,6,KMI,40,A,39191,80,ok,
-px009_10_1,Px009,1,FIS,10,legado,22320,80,excluido,formato legado (solo B): stims no alineable con la señal
-px009_40_1,Px009,1,FIS,40,legado,22352,80,excluido,formato legado (solo B): stims no alineable con la señal
-Px009_10img_1,Px009,1,KMI,10,legado,22384,320,excluido,formato legado (solo B): stims no alineable con la señal
-Px009_40img_1,Px009,1,KMI,40,legado,22328,320,excluido,formato legado (solo B): stims no alineable con la señal
-px009_10_3,Px009,3,FIS,10,A,39104,80,ok,
-px009_40_3,Px009,3,FIS,40,A,39128,80,ok,aviso: nivel del nombre (40) ~= max(stims) (10)
-Px009_10img_3,Px009,3,KMI,10,A,39128,80,ok,
-Px009_40img_3,Px009,3,KMI,40,A,39128,80,ok,aviso: nivel del nombre (40) ~= max(stims) (10)
-Px009_10_6,Px009,6,FIS,10,A,39360,80,ok,
-Px009_40_6,Px009,6,FIS,40,A,39392,80,ok,
-Px009_10img_6,Px009,6,KMI,10,A,39656,80,ok,
-Px009_40img_6,Px009,6,KMI,40,A,39408,80,ok,
-px010_10_1,Px010,1,FIS,10,legado,22328,80,excluido,formato legado (solo B): stims no alineable con la señal
-px010_40_1,Px010,1,FIS,40,A,39112,80,ok,
-Px010_10img_1,Px010,1,KMI,10,A,39056,80,ok,
-Px010_40img_1,Px010,1,KMI,40,A,39128,80,ok,
-px010_10_3,Px010,3,FIS,10,A,39120,80,ok,
-px010_40_3,Px010,3,FIS,40,A,39040,80,ok,
-Px010_10img_3,Px010,3,KMI,10,A,39032,80,ok,
-Px010_40img_3,Px010,3,KMI,40,A,39127,80,ok,
+px006_10_1,Px006,1,FIS,10,A,39072,80,ok,""
+px006_40_1,Px006,1,FIS,40,A,39143,80,ok,""
+Px006_10img_1,Px006,1,KMI,10,A,39104,80,ok,""
+Px006_40img_1,Px006,1,KMI,40,A,39112,80,ok,""
+px006_10_2,Px006,3,FIS,10,A,39071,80,ok,"aviso: nivel del nombre (10) ~= max(stims) (40)"
+px006_40_2,Px006,3,FIS,40,A,39128,80,ok,""
+Px006_10img_3,Px006,3,KMI,10,A,39112,80,ok,"aviso: nivel del nombre (10) ~= max(stims) (40)"
+Px006_40img_3,Px006,3,KMI,40,A,39096,80,ok,""
+px006_10_6,Px006,6,FIS,10,A,39112,80,ok,""
+px006_40_6,Px006,6,FIS,40,A,39120,80,ok,""
+Px006_10img_6,Px006,6,KMI,10,A,39088,80,ok,""
+PX006_40img_6,Px006,6,KMI,40,A,39360,80,ok,""
+px007_10_1,Px007,1,FIS,10,A,39143,80,ok,""
+Px007_40_1,Px007,1,FIS,40,A,39136,80,ok,""
+Px007_10img_1,Px007,1,KMI,10,A,39112,80,ok,""
+Px007_40img_1,Px007,1,KMI,40,A,39144,80,ok,""
+px007_10_2,Px007,3,FIS,10,A,39176,80,ok,""
+px007_40_2,Px007,3,FIS,40,A,39120,80,ok,""
+Px007_10img_3,Px007,3,KMI,10,A,39136,80,ok,""
+Px007_40img_3,Px007,3,KMI,40,A,39144,80,ok,""
+Px007_10_6,Px007,6,FIS,10,A,39104,80,ok,""
+Px007_40_6,Px007,6,FIS,40,A,39096,80,ok,""
+Px007_10img_6,Px007,6,KMI,10,A,39104,80,ok,""
+Px007_40img_6,Px007,6,KMI,40,A,39096,80,ok,""
+px008_10_1,Px008,1,FIS,10,A,38528,80,ok,""
+px008_40_1,Px008,1,FIS,40,A,39096,80,ok,""
+Px008_10img_1,Px008,1,KMI,10,A,39056,80,ok,""
+Px008_40img_1,Px008,1,KMI,40,A,39136,80,ok,""
+px008_10_3,Px008,3,FIS,10,A,39096,80,ok,""
+px008_40_3,Px008,3,FIS,40,A,39144,80,ok,""
+Px008_10img_3,Px008,3,KMI,10,A,39144,80,ok,"aviso: nivel del nombre (10) ~= max(stims) (40)"
+Px008_40img_3,Px008,3,KMI,40,A,39128,80,ok,"aviso: nivel del nombre (40) ~= max(stims) (10)"
+Px008_10_6,Px008,6,FIS,10,A,39400,80,ok,""
+Px008_40_6,Px008,6,FIS,40,A,39168,80,ok,""
+Px008_10img_6,Px008,6,KMI,10,A,39448,80,ok,""
+Px008_40img_6,Px008,6,KMI,40,A,39191,80,ok,""
+px009_10_1,Px009,1,FIS,10,legado,22320,80,ok,"aviso: formato legado (solo B, ~89 s): sin bloques de stims, solo 10 vs 40"
+px009_40_1,Px009,1,FIS,40,legado,22352,80,ok,"aviso: formato legado (solo B, ~89 s): sin bloques de stims, solo 10 vs 40"
+Px009_10img_1,Px009,1,KMI,10,legado,22384,320,ok,"aviso: formato legado (solo B, ~89 s): sin bloques de stims, solo 10 vs 40"
+Px009_40img_1,Px009,1,KMI,40,legado,22328,320,ok,"aviso: formato legado (solo B, ~89 s): sin bloques de stims, solo 10 vs 40"
+px009_10_3,Px009,3,FIS,10,A,39104,80,ok,""
+px009_40_3,Px009,3,FIS,40,A,39128,80,ok,"aviso: nivel del nombre (40) ~= max(stims) (10)"
+Px009_10img_3,Px009,3,KMI,10,A,39128,80,ok,""
+Px009_40img_3,Px009,3,KMI,40,A,39128,80,ok,"aviso: nivel del nombre (40) ~= max(stims) (10)"
+Px009_10_6,Px009,6,FIS,10,A,39360,80,ok,""
+Px009_40_6,Px009,6,FIS,40,A,39392,80,ok,""
+Px009_10img_6,Px009,6,KMI,10,A,39656,80,ok,""
+Px009_40img_6,Px009,6,KMI,40,A,39408,80,ok,""
+px010_10_1,Px010,1,FIS,10,legado,22328,80,ok,"aviso: formato legado (solo B, ~89 s): sin bloques de stims, solo 10 vs 40"
+px010_40_1,Px010,1,FIS,40,A,39112,80,ok,""
+Px010_10img_1,Px010,1,KMI,10,A,39056,80,ok,""
+Px010_40img_1,Px010,1,KMI,40,A,39128,80,ok,""
+px010_10_3,Px010,3,FIS,10,A,39120,80,ok,""
+px010_40_3,Px010,3,FIS,40,A,39040,80,ok,""
+Px010_10img_3,Px010,3,KMI,10,A,39032,80,ok,""
+Px010_40img_3,Px010,3,KMI,40,A,39127,80,ok,""

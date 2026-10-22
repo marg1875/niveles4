@@ -23,7 +23,8 @@ function etapa15_revision(cfg)
 %      LOPO, voto y orden frente a nivel).
 %   -> resultados/revision/*.csv
 
-dirR = fullfile(cfg.rutas.resultados, 'revision');
+rv = cfg.revision;
+dirR = fullfile(cfg.rutas.resultados, rv.carpeta);
 dirC = fullfile(dirR, 'cache');
 for d = {dirR, dirC}
     if ~isfolder(d{1}), mkdir(d{1}); end
@@ -79,7 +80,7 @@ for k = 1:size(conf, 1)
     pPac = mean(nula >= mean(aP));
     % LOSO con permutación secuencial por sesión (solo baselines; el resto ya está en las etapas 13-14)
     pSes = NaN; nPerm = 0;
-    if ismember(conf{k, 2}, {'BANDAS', 'CSP'})
+    if rv.perm_todas || ismember(conf{k, 2}, {'BANDAS', 'CSP'})
         [pSes, nPerm] = perm_secuencial(TK, nom, modelo(k), cfg, ff, mean(aS), nw, ...
             fullfile(dirR, sprintf('perm_%02d.avance.txt', k)));
     end
@@ -111,6 +112,7 @@ for k = 1:size(conf, 1)
     T = D.(campo(conf{k, 2}));
     dia = regexprep(T.sesion, '_(KMI|FIS)$', '');
     completos = dias_completos(T, dia);
+    completos = setdiff(completos, rv.dias_excluidos_orden);   % legados: su hora de guardado no es la de grabación
     T = T(ismember(dia, completos), :); dia = dia(ismember(dia, completos));
     [nom, ff] = config_feat(conf{k, 2}, D, T, cfg);
     pr = predicciones_grupo(T, nom, modelo(k), cfg, dia, {}, strcmp(T.condicion, 'KMI'), ff);
@@ -146,7 +148,7 @@ for L = [512 1000]
     if isempty(fams{1}), continue, end
     [K, lay] = caract_registro(cfg, L, baseH);
     [~, ik] = ismember(fams, {K.nombre});
-    S = load(fullfile(cfg.rutas.resultados, 'complejidad', 'cache', ['w_' pre '.mat']));
+    S = load(fullfile(cfg.rutas.resultados, cfg.revision.dir_w, ['w_' pre '.mat']));
     [X, nom] = caract_desde_curvas(double(S.W.feat), K(ik), lay, cfg);
     T = removevars(S.W, {'feat', 'valida'}); T.feat = X;
     D.(pre) = T; D.([pre '_nombres']) = nom;

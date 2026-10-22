@@ -56,7 +56,7 @@ cfg.canales.config_referencia = 'E9';   % configuración usada en la fase A
 cfg.inventario.n_stims_esperado    = 80;
 cfg.inventario.patron_ciclo        = [0 0 0 0 1 1 1 1];   % 0 = reposo, 1 = tarea
 cfg.inventario.muestras_por_stim   = [470 510];           % rango válido N/K
-cfg.inventario.excluir_formato_legado = true;
+cfg.inventario.excluir_formato_legado = false;  % los 5 legados entran al análisis 10 vs 40 (sin bloques de stims)
 
 %% ------------------------------------------------------------- Filtrado
 cfg.filtro.tipo          = 'butter';    % 'butter' (tesis/Niveles3) | 'fir' (artículo)
@@ -206,6 +206,14 @@ cfg.mfh.L        = 1000;                                     % ventanas de 4 s (
 cfg.mfh.familias = {'MFhp1', 'HIG', 'MFhp3', 'DFA3', 'WAV'};  % MF y HIG + controles
 cfg.mfh.top      = 6;                                        % mejores de cada familia que se combinan
 cfg.mfh.n_perm   = 1000;
+cfg.mfh.carpeta  = 'mfdfa_higuchi';
+cfg.mfh.dir_w    = fullfile('complejidad', 'cache');       % ventanas contiguas (curvas de la etapa 13)
+
+%% ------------------------------------- Controles de revisión (etapa 15)
+cfg.revision.carpeta = 'revision';
+cfg.revision.dir_w   = fullfile('complejidad', 'cache');
+cfg.revision.perm_todas = false;                   % permutación por sesión también para las configuraciones fractales
+cfg.revision.dias_excluidos_orden = {};            % días sin hora real de grabación (control orden vs nivel)
 
 %% ------------------------------------------------------------- Weka
 cfg.weka.folds           = 5;

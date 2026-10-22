@@ -347,8 +347,16 @@ Archivos: `etapa15_revision.m` y `corrida_revision.m` → `resultados_asr/revisi
   tarea del ciclo.
 - **Registros legados.** Los 4 de Px.009 mes 1 y `px010_10_1` tienen formato *legado* (solo `B`,
   ~89 s).
-  - **Hasta el 21-oct-2026 se excluían**, sin consultar, porque su ciclo real de artefactos
-    (~15–18 s) no coincide con el que implican sus `stims`.
+  - **Hasta el 21-oct-2026 se excluían, sin consultar.** Motivo verificado:
+    - Solo guardan `B` (89 s), mientras que los registros normales duran ~156 s.
+    - Sus `stims` tienen otro patrón: `0 L 0 L…` con 80 entradas en FIS y
+      `[0 0 0 0 L L L L] × 40` con 320 entradas en KMI.
+    - Repartidas sobre los 89 s implican un ciclo de 2.2 s, incompatible con el de 15.6 s del resto,
+      así que no se sabe qué tramo del protocolo es la señal.
+    - El argumento previo de un "ciclo de artefactos de 15–18 s" no se reprodujo y se descarta.
+  - **Su marca "Created on" no es la hora de adquisición:** `px009_40_1` y `px010_10_1` tienen el
+    mismo segundo, y el par KMI está separado 10 días. Las grabaciones son válidas; el problema es
+    solo de metadatos.
   - **Ahora se incluyen** (`cfg.inventario.excluir_formato_legado = false`) en todos los análisis
     que usan la etiqueta del archivo (10 vs 40). Quedan fuera solo de los que necesitan los bloques
     de reposo/tarea: `segmentar_por_estimulos` les asigna 0 anclas.

@@ -7,6 +7,8 @@ siguiendo la metodología de:
 > Martinez-Peon D., Garcia-Hernandez N. V., Benavides-Bravo F. G., Parra-Vega V. (2024).
 > *Characterization and classification of kinesthetic motor imagery levels.* J. Neural Eng. 21, 046024.
 
+**Resultados completos de todas las etapas (1–15):** [`docs/RESULTADOS.md`](docs/RESULTADOS.md).
+
 Datos: 5 pacientes con ECV isquémico (Px006–Px010), meses 1/3/6, imaginería motora kinestésica
 (`*img*`, **KMI**) y ejecución física (**FIS**) al 10 % y 40 % de la FVM, registrados con un
 **g.Nautilus de 16 canales a 250 Hz** (`Datos/`).

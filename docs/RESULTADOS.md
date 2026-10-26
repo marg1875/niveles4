@@ -33,7 +33,13 @@ son de trabajo (no de calidad de publicación) y se rehacerán en otra sesión.
 > - La potencia de banda θ/μ/β (66.6 %) y FuzzyEn (66.3 %) pasan a ser las mejores, aunque tampoco
 >   son significativas por paciente (p = 0.062).
 >
-> Para el artículo, la referencia es la **sección 17**.
+> Para el artículo, la referencia son las **secciones 17 y 18**.
+>
+> **Sección 18:** potencia de banda optimizada y combinaciones con 14 sesiones.
+> - El mejor conjunto encontrado es FuzzyEn τ2 + τ4 + Higuchi: LOSO 72.8 %, p = 0.011; por registro,
+>   12/14 sesiones (p = 0.006).
+> - Elegido sin ver la sesión de prueba (anidado estricto): 64.3 %, p = 0.12.
+> - Potencia θ/μ/β absoluta: 67.3 %.
 
 1. **Dentro de la sesión** los niveles 10/40 se separan con 70–92 % y 3 clases con 50–63 %.
    Gran parte de eso es **huella del archivo**:
@@ -755,6 +761,7 @@ da la fracción de ventanas predichas como "40" y un modelo mixto
 | `resultados_asr/mfdfa_higuchi/` | Etapa 14 |
 | `resultados_asr/revision/` | Etapa 15 |
 | `resultados_asr/legados/` | Sección 17: etapas 14 y 15 con los 5 registros legados (14 KMI / 14 FIS) |
+| `resultados_asr/legados/banda_combinada/` | Sección 18: potencia de banda optimizada y combinaciones (etapa 16) |
 
 Los archivos pesados (`.mat`, `.arff`, cachés, características por ventana) y los datos de
 pacientes no se versionan; se regeneran con los scripts `corrida_*.m` (ver README).
@@ -874,3 +881,95 @@ Mismos 12 días con hora real que en la sección 14.2, así que el resultado es 
 5. **Los resultados son frágiles ante la composición de la muestra.** La conclusión defendible para el
    artículo es la existencia de información del nivel a nivel de registro, no la superioridad de una
    familia de características. **Hacen falta más sesiones y pacientes.**
+
+---
+
+## 18. Potencia de banda optimizada y combinaciones (14 sesiones KMI, ventanas de 4 s)
+
+Archivos: `etapa16_banda_combinada.m` y `corrida_banda.m` → `resultados_asr/legados/banda_combinada/`.
+
+**Familias evaluadas:** 40, de 16 atributos cada una (un valor por canal). Las espectrales salen de la
+PSD de Welch ya calculada (resolución ~1 Hz):
+
+| Grupo | Familias |
+|---|---|
+| ABS | Potencia absoluta (log) en δ 1–4, θ 4–8, μ 8–13, β1 13–20, β2 20–30, γ 30–45 Hz |
+| REL | Potencia relativa (sobre 1–45 Hz) en las mismas bandas |
+| RAZ | Cocientes θ/β, μ/β, θ/μ, (θ+μ)/β y μ/δ |
+| FIN | Potencia relativa en bandas de 2 Hz entre 4 y 30 Hz |
+| FOR | Forma espectral: frecuencia del pico α, borde espectral del 90 % y centroide |
+| Escalamiento y entropía | FuzzyEn (τ = 2 y τ = 4), MFDFA h(+1) y h(+3), DFA3, wavelets db4 y Higuchi k12–96 |
+
+**Método:**
+- Clasificador: SVM ajustado ig8.
+- Selección hacia adelante de hasta 4 familias, por LOSO interna.
+- Validación con 1000 permutaciones completas por sesión y LOPO con permutación exacta por
+  paciente (32 asignaciones; p mínimo posible = 0.031).
+
+### 18.1 LOSO de familias y conjuntos (sin selección; top 15)
+
+| Conjunto | LOSO | Sesiones > 50 % |
+|---|---|---|
+| ABS θ + μ + β1 + β2 | **67.3 %** | 11/14 |
+| FuzzyEn r = 0.10, τ = 4 | 66.7 % | 10/14 |
+| FuzzyEn r = 0.10, τ = 2 | 66.3 % | 11/14 |
+| ABS, las 6 bandas | 65.9 % | 11/14 |
+| ABS μ | 63.9 % | 10/14 |
+| ABS β1 | 63.4 % | 11/14 |
+| Wavelets db4, octavas 1–3 | 62.5 % | 9/14 |
+| DFA3 con traslape, n = 5–32 | 62.2 % | 9/14 |
+| MFDFA h(+3) o3 n5–24 | 62.1 % | 9/14 |
+| MFDFA h(+1) o3 n5–32 | 61.1 % | 9/14 |
+| REL θ + μ + β1 + β2 | 60.6 % | 11/14 |
+| REL, las 6 bandas | 60.0 % | 10/14 |
+| Todos los cocientes | 59.7 % | **12/14** |
+| Higuchi k12–96 | 59.5 % | 10/14 |
+| REL β1 | 59.3 % | 11/14 |
+
+La potencia absoluta funciona mejor que la relativa. Afinar la banda (separar β en dos) sube la
+potencia θμβ de 66.6 % a 67.3 %.
+
+### 18.2 Selección hacia adelante: global y anidada estricta
+
+- **Global** (las 14 sesiones): **FuzzyEn τ4 + FuzzyEn τ2 + Higuchi k12–96**, LOSO interna 72.8 %.
+- **Anidada estricta** (toda la selección se repite sin la sesión de prueba): **64.3 %**, 11/14
+  sesiones > 50 %, Wilcoxon p = 0.121.
+  - **FuzzyEn τ4 aparece en las 14 selecciones**: es el componente estable.
+  - El resto de cada conjunto cambia de un fold a otro (β1, μ, cocientes, MFDFA, wavelets).
+- **Dos sesiones salen casi totalmente invertidas en el anidado:**
+  - **Px006-M1-KMI: 6.6 %**;
+  - **Px008-M6-KMI: 6.4 %** (la de electrodos puenteados).
+
+  Las demás quedan entre 38 % y 94 %.
+
+### 18.3 Validación completa de finalistas
+
+| Conjunto | Atributos | LOSO [IC 95 %] | p (1000 perm.) | LOPO [IC 95 %] | p paciente | Voto por archivo (28) | Decisión por sesión (14) |
+|---|---|---|---|---|---|---|---|
+| **FuzzyEn τ4 + τ2 + Higuchi k12–96** (global) | 48 | **72.8 %** [64–82] | **0.011** | **68.6 %** | 0.062 | **86 %** | **86 %, 12/14 (p = 0.006)** |
+| FuzzyEn τ2 + τ4 + ABS γ + ABS β1 | 64 | 71.3 % [60–83] | 0.038 | 67.1 % | 0.062 | 79 % | 79 % (p = 0.029) |
+| **ABS θ + μ + β1 + β2** | 64 | 67.3 % [56–81] | 0.057 | 66.0 % | 0.062 | 82 % | 79 % (p = 0.029) |
+| FuzzyEn τ4 | 16 | 66.7 % [54–80] | 0.054 | 66.4 % | 0.062 | 75 % | 71 % (p = 0.090) |
+| FuzzyEn τ2 | 16 | 66.3 % [56–77] | 0.054 | 65.4 % | 0.062 | 79 % | 79 % (p = 0.029) |
+| ABS, las 6 bandas | 96 | 65.9 % [55–80] | 0.079 | 64.1 % | 0.125 | 75 % | 79 % (p = 0.029) |
+| ABS μ | 16 | 63.9 % [53–79] | 0.093 | 60.2 % | 0.188 | 75 % | 71 % (p = 0.090) |
+| DFA3 con traslape, n = 5–32 | 16 | 62.2 % [47–80] | 0.068 | 55.9 % | 0.281 | 64 % | 64 % (p = 0.21) |
+| MFDFA h(+1) o3 n5–32 | 16 | 61.1 % [44–79] | 0.101 | 55.6 % | 0.219 | 71 % | 64 % (p = 0.21) |
+
+### 18.4 Conclusiones de la etapa 16
+
+1. **La mejor configuración encontrada** es FuzzyEn (τ2 y τ4) + Higuchi k12–96, en ventanas de 4 s:
+   - entre sesiones: 72.8 %, p = 0.011 con 1000 permutaciones completas;
+   - por paciente: 68.6 %;
+   - por registro: 86 % de los archivos y 12/14 sesiones bien decididas (p = 0.006).
+2. **Pero se eligió mirando las 14 sesiones.** La estimación honesta de todo el procedimiento es la del
+   anidado estricto: **64.3 %**, no significativa (p = 0.12).
+3. **Lo robusto entre folds es FuzzyEn τ4** (elegida en 14/14) y, en segundo plano, la potencia
+   absoluta en θ/μ/β. Las familias de escalamiento puras (MFDFA, DFA3, wavelets) quedan por debajo
+   con 14 sesiones.
+4. **Por paciente nada baja de p = 0.062** (2 de 32 asignaciones). Con 5 pacientes el mínimo posible
+   es 0.031, y solo se alcanza si el resultado es perfecto en todas las permutaciones.
+5. **Px006-M1-KMI y Px008-M6-KMI salen invertidas** en el anidado. Conviene verificar en la bitácora
+   el nivel de esos archivos y, en Px008-M6, la calidad del registro (electrodos puenteados).
+6. **Cautela con FuzzyEn:** es también la característica con más huella dentro de la sesión (herencia
+   del reposo 93 %, sección 12.5).

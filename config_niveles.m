@@ -215,6 +215,15 @@ cfg.revision.dir_w   = fullfile('complejidad', 'cache');
 cfg.revision.perm_todas = false;                   % permutación por sesión también para las configuraciones fractales
 cfg.revision.dias_excluidos_orden = {};            % días sin hora real de grabación (control orden vs nivel)
 
+%% ------------------------------------- Potencia de banda optimizada y combinada (etapa 16)
+cfg.banda.carpeta      = fullfile('legados', 'banda_combinada');
+cfg.banda.dir_w        = fullfile('legados', 'cache');       % ventanas de 4 s con los 56 registros
+cfg.banda.fractales    = {'FEr10t4', 'FEr10t2', 'MFhp1o3n5a32', 'DFAto5a32', 'WVdb4j1a3', 'HIG12a96', 'MFhp3o3n5a24'};
+cfg.banda.max_familias = 4;                                 % selección hacia adelante
+cfg.banda.top_validar  = 5;                                 % mejores de B2 que pasan a validación completa
+cfg.banda.n_perm       = 1000;                              % completas, sin paro temprano
+cfg.banda.referencias  = {'ABSth+ABSmu+ABSb1+ABSb2', 'FEr10t2', 'MFhp1o3n5a32', 'DFAto5a32'};
+
 %% ------------------------------------------------------------- Weka
 cfg.weka.folds           = 5;
 cfg.weka.semilla         = 1;

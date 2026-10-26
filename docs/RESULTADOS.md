@@ -784,7 +784,7 @@ Archivos: `corrida_legados.m` → `resultados_asr/legados/` (`mfdfa_higuchi/` y 
 - Con esto, **7 de las 28 sesiones** no convergen en el ICA.
 - Ventanas contiguas: las de la etapa 13 más las sesiones nuevas.
   - 2 s: 4090 ventanas (+291).
-  - 4 s: 2074 ventanas (+148); de ellas, 1060 son de KMI.
+  - 4 s: 2074 ventanas (+148); de ellas, 1047 son de KMI (76–78 por sesión; 44 en Px009-M1-KMI, porque sus registros duran 89 s).
 - Se repitieron la etapa 14 (MFDFA h(+1) + Higuchi) y la etapa 15 (LOSO, LOPO, voto, baselines y orden
   contra nivel). Esta vez hubo **permutación por sesión para todas las configuraciones**.
 - Px009-M1 y Px010-M1 no entran al control de orden contra nivel: sus horas no son reales.

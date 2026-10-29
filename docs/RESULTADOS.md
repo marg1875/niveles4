@@ -69,8 +69,11 @@ y `resultados_car/puentes_por_archivo.csv`.
 
 **Equipo y montaje**
 - g.Nautilus de 16 canales a 250 Hz.
-- Orden de canales: Fp1, Fp3 (≈ Fp2), F3, Fz, F4, Cz, Pz, P5, P3, O1, Oz, T8, P8, P6, P4, T7.
-- Sin EMG y sin C3/C4.
+- Orden de canales (montaje estándar del g.Nautilus PRO, corregido el 2026-10-28): Fp1, Fp2, F3, Fz,
+  F4, T7, C3, Cz, C4, T8, P3, Pz, P4, PO7, PO8, Oz. Las columnas de los CSV conservan los
+  identificadores anteriores (Fp1, Fp3, F3, Fz, F4, Cz, Pz, P5, P3, O1, Oz, T8, P8, P6, P4, T7),
+  que de la fila 6 en adelante no son el electrodo real.
+- Sin EMG.
 
 **Registros**
 - 5 pacientes con ECV (Px006–Px010), meses 1/3/6, KMI y FIS al 10 % y 40 %.

@@ -23,18 +23,28 @@ cfg.rutas.weka_jar    = localizar_weka_jar();
 
 %% ------------------------------------------------- Adquisición / montaje
 cfg.fs = 250;                                   % g.Nautilus (Hz)
-% Orden de las filas de EEG_all (Niveles3/config.py, ReporteAvances.tex).
-% "Fp3" no es una posición estándar 10-20; probablemente sea Fp2.
+% Electrodo real de cada fila de EEG_all: montaje estándar de 16 canales del
+% g.Nautilus PRO (manual de adquisición del CIDICS; referencia en el lóbulo
+% de la oreja derecha, tierra en AFz). Confirmado con la persona que hizo los
+% registros (2026-10-28) y con las señales (verificar_montaje).
+cfg.canales.electrodos = {'Fp1','Fp2','F3','Fz','F4','T7','C3','Cz', ...
+                          'C4','T8','P3','Pz','P4','PO7','PO8','Oz'};
+% Identificadores históricos de las mismas filas. NO son posiciones: de la
+% fila 6 en adelante no corresponden al electrodo real. Se conservan porque
+% nombran las columnas de todos los CSV, ARFF y cachés ya calculados; para
+% mostrar o ubicar un canal se usa cfg.canales.electrodos.
 cfg.canales.nombres = {'Fp1','Fp3','F3','Fz','F4','Cz','Pz','P5', ...
                        'P3','O1','Oz','T8','P8','P6','P4','T7'};
 
-% Configuraciones de canales a comparar (E = escalonadas, R = por región).
+% Configuraciones de canales a comparar (E = escalonadas, R = por región),
+% con los identificadores históricos. Se diseñaron con las etiquetas
+% equivocadas, así que la descripción indica los electrodos reales.
 E1 = {'F3','F4'};
 E2 = [E1, {'Fz'}];
 E3 = [E2, {'Fp1','Fp3'}];
 E4 = [E3, {'P3','P4'}];
 E5 = [E4, {'Pz'}];
-E6 = [E5, {'Cz'}];                      % = conf. 10 de la tesis hermana
+E6 = [E5, {'Cz'}];
 E7 = [E6, {'P5','P6'}];
 E8 = [E7, {'T7','T8','P8'}];
 E9 = cfg.canales.nombres;               % los 16
@@ -44,12 +54,10 @@ cfg.canales.configs = struct( ...
   'canales',{E1, E2, E3, E4, E5, E6, E7, E8, E9, ...
              {'Cz'}, {'Fz','Cz','Pz'}, {'Pz','P3','P4','P5','P6'}, ...
              setdiff(E9, {'Cz'}, 'stable'), {'T7','T8','P8','O1','Oz'}}, ...
-  'descripcion', {'Par DLPFC bilateral','+Fz (frontal/pre-SMA)', ...
-             '+Fp1,Fp3 (prefrontal)','+P3,P4 (parietal)','+Pz (fronto-parietal sin motora)', ...
-             '+Cz (= conf. 10 tesis hermana)','+P5,P6 (IPL lateral)', ...
-             '+T7,T8,P8 (temporo-parietal)','Todos (16)', ...
-             'Cz (referencia motora)','Linea media','Parietal / IPL', ...
-             'Todos menos Cz (criterio del articulo)','Control negativo temporal/occipital'});
+  'descripcion', {'F3, F4','+Fz','+Fp1, Fp2','+C4, PO8','+C3', ...
+             '+T7','+Cz, PO7','+Oz, Pz, P4','Todos (16)', ...
+             'T7','Fz, T7, C3','C3, C4, Cz, PO7, PO8', ...
+             'Todos menos T7','Oz, Pz, P4, T8, P3'});
 cfg.canales.config_referencia = 'E9';   % configuración usada en la fase A
 
 %% ------------------------------------------------------ Inventario / QA
@@ -286,7 +294,7 @@ cfg.calibracion.ajustar_despues = true;  % ejecutar la etapa 6 con el conjunto c
 % La sesión imaginada (KMI) fue ASÍNCRONA: su stims no indica cuándo imaginó
 % el paciente -> intentos por ERD. La física (FIS) es síncrona -> stims.
 cfg.eventos.banda            = [8 30];             % mu/beta (Hz)
-cfg.eventos.canales_erd      = {'Cz','Pz','P3','P4'};
+cfg.eventos.canales_erd      = {'Cz','Pz','P3','P4'};  % identificadores; electrodos reales T7, C3, C4, PO8
 cfg.eventos.factor_umbral    = 0.2;               % umbral = p10 + f (p90 - p10)
 cfg.eventos.min_duracion_s   = 0.5;
 cfg.eventos.separacion_min_s = 3.0;

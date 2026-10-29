@@ -113,16 +113,19 @@ Los ARFF abren directamente en **Weka Explorer / Experimenter**. Cada uno contie
   intra-sujeto en KMI 3 clases con HRS64+HO+HV.
 - **Fase B — canales**: 14 configuraciones en 512 muestras y en la mejor duración:
 
-| ID | Canales | ID | Canales |
+Las configuraciones se diseñaron con las etiquetas equivocadas del montaje (ver *Montaje* abajo);
+la tabla da los electrodos reales que contiene cada una.
+
+| ID | Electrodos reales | ID | Electrodos reales |
 |---|---|---|---|
-| E1 | F3, F4 | R1 | Cz |
-| E2 | + Fz | R2 | Fz, Cz, Pz |
-| E3 | + Fp1, Fp3 | R3 | Pz, P3, P4, P5, P6 |
-| E4 | + P3, P4 | R4 | todos menos Cz (criterio del artículo) |
-| E5 | + Pz | R5 | T7, T8, P8, O1, Oz (control negativo) |
-| E6 | + Cz (= conf. 10 de la tesis hermana del laboratorio) | | |
-| E7 | + P5, P6 | | |
-| E8 | + T7, T8, P8 | | |
+| E1 | F3, F4 | R1 | T7 |
+| E2 | + Fz | R2 | Fz, T7, C3 |
+| E3 | + Fp1, Fp2 | R3 | C3, C4, Cz, PO7, PO8 |
+| E4 | + C4, PO8 | R4 | todos menos T7 |
+| E5 | + C3 | R5 | Oz, Pz, P4, T8, P3 |
+| E6 | + T7 | | |
+| E7 | + Cz, PO7 | | |
+| E8 | + Oz, Pz, P4 | | |
 | E9 | los 16 | | |
 
 - **Chequeo de fuga**: las 5 mejores combinaciones se reevalúan con CV **agrupada por bloque**.
@@ -336,10 +339,14 @@ Archivos: `etapa15_revision.m` y `corrida_revision.m` → `resultados_asr/revisi
 
 ## Decisiones y supuestos (leer antes de interpretar resultados)
 
-- **Montaje.** No es el Emotiv del artículo. Filas de `EEG_all`:
-  `Fp1, Fp3, F3, Fz, F4, Cz, Pz, P5, P3, O1, Oz, T8, P8, P6, P4, T7`. No hay C3/C4.
-  "Fp3" no es una posición estándar; probablemente sea **Fp2** (pendiente de confirmar con las notas
-  de adquisición).
+- **Montaje.** No es el Emotiv del artículo. Es el montaje estándar de 16 canales del g.Nautilus PRO
+  (manual de adquisición del CIDICS, confirmado con quien hizo los registros el 2026-10-28; referencia
+  en el lóbulo de la oreja derecha, tierra en AFz). Filas de `EEG_all` (`cfg.canales.electrodos`):
+  `Fp1, Fp2, F3, Fz, F4, T7, C3, Cz, C4, T8, P3, Pz, P4, PO7, PO8, Oz`.
+  Hasta esa fecha se usó otra lista (`Fp1, Fp3, F3, Fz, F4, Cz, Pz, P5, P3, O1, Oz, T8, P8, P6, P4, T7`),
+  equivocada de la fila 6 en adelante. Se conserva en `cfg.canales.nombres` solo como identificador
+  de las columnas de los CSV, ARFF y cachés (p. ej., `HV_Cz` es el electrodo T7); los resultados
+  de clasificación no cambian, porque todos usan los 16 canales.
 - **Sin EMG.** Los `.mat` solo traen 16 canales de EEG, así que la verificación de "contracción nula"
   del artículo no es reproducible. El QA usa la potencia de artefactos EEG como proxy.
 - **Temporización.** `stims` no trae tiempos; se asume espaciado uniforme. La evidencia está en

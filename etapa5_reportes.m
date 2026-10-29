@@ -173,7 +173,7 @@ if isfile(archC)
             m = mean(S{S.clase == niveles(n), hv}, 1, 'omitnan');
             plot(1:nnz(hv), m, 'o', 'DisplayName', sprintf('%d %%', niveles(n)));
         end
-        set(gca, 'XTick', 1:nnz(hv), 'XTickLabel', cfg.canales.nombres); grid on
+        set(gca, 'XTick', 1:nnz(hv), 'XTickLabel', cfg.canales.electrodos); grid on
         ylabel('HV medio'); legend; title(sprintf('HV por electrodo y nivel - %s', cond{1}));
         subplot(1,2,2);
         boxchart(categorical(S.clase), mean(S{:, hv}, 2, 'omitnan')); grid on

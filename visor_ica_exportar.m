@@ -30,7 +30,7 @@ if ~isempty(solo)
     dirO = fullfile(dirO, 'parcial');
     if ~isfolder(dirO), mkdir(dirO); end
 end
-P =coordenadas_canales(cfg.canales.nombres);
+P = coordenadas_canales(cfg.canales.electrodos);
 
 ses = {};
 for s = 1:max(g)

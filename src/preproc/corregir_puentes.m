@@ -25,7 +25,7 @@ switch cfg.puentes.metodo
     case 'eliminar'
         X(puenteados, :) = NaN;
     case 'interpolar'
-        P = coordenadas_canales(cfg.canales.nombres);
+        P = coordenadas_canales(cfg.canales.electrodos);
         buenos = setdiff(1:size(X, 1), puenteados);
         X0 = X;
         for c = puenteados

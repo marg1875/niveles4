@@ -1,5 +1,6 @@
-# Datos clínicos (EEG de pacientes): nunca se suben
+# Datos clínicos (EEG de pacientes y controles sanos): nunca se suben
 Datos/
+Datos_controles/
 *.mat
 # Artículos de referencia (derechos de autor)
 pdf/

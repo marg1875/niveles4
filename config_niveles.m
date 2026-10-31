@@ -13,6 +13,10 @@ raiz = fileparts(mfilename('fullpath'));
 %% ---------------------------------------------------------------- Rutas
 cfg.rutas.raiz        = raiz;
 cfg.rutas.datos       = fullfile(raiz, 'Datos');
+% Controles sanos (2026-10-31): mismo protocolo y experimentador, una sesión,
+% claves anónimas C01-C05 (clave_controles.csv). Fuera de Datos para que el
+% inventario de los pacientes no los incluya.
+cfg.rutas.datos_controles = fullfile(raiz, 'Datos_controles');
 cfg.rutas.resultados  = fullfile(raiz, 'resultados');
 % Carpeta de resultados alternativa (p. ej. corrida con CAR): variable de
 % entorno NIVELES_RESULTADOS con el nombre de la carpeta dentro de la raíz.
